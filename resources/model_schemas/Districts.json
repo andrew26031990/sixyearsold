@@ -1,0 +1,58 @@
+[
+    {
+        "name": "id",
+        "dbType": "integer,true",
+        "htmlType": null,
+        "validations": null,
+        "searchable": false,
+        "fillable": false,
+        "primary": true,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
+    },
+    {
+        "name": "region_id",
+        "dbType": "integer,false",
+        "htmlType": null,
+        "validations": "nullable|integer|nullable|integer",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "name",
+        "dbType": "string,100:nullable",
+        "htmlType": "text",
+        "validations": "nullable|string|max:100|nullable|string|max:100",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "type": "relation",
+        "relation": "mt1,Region,region_id"
+    },
+    {
+        "type": "relation",
+        "relation": "1tm,Community,district_id"
+    },
+    {
+        "type": "relation",
+        "relation": "1tm,Group,district_id"
+    },
+    {
+        "type": "relation",
+        "relation": "1tm,Institution,district_id"
+    },
+    {
+        "type": "relation",
+        "relation": "1tm,Teacher,district_id"
+    }
+]
