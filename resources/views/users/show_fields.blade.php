@@ -34,3 +34,17 @@
     <p>{{ $users->role }}</p>
 </div>
 
+<!-- Lang Field -->
+<label>Prefer site language</label>
+<div class="form-group" style="display: inline-block">
+
+    <select class="form-control lang-user-change" onchange="changeLang(this.value, {{ $users->id }})">
+        <option value="ru" {{ $users->lang == "ru" ? 'selected' : '' }}>ru</option>
+        <option value="uz" {{ $users->lang == "uz" ? 'selected' : '' }}>uz</option>
+    </select>
+</div>
+
+
+<br>
+
+

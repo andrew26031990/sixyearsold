@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->setLocale(Auth::user()->lang)) }}">
 <head>
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
@@ -48,20 +48,7 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-                            <div class="form-group">
-                                <select class="form-control" id="lang_sel">
-                                    <option><a class="dropdown-item" href="{{ url('locale/en') }}"><span class="flag-icon flag-icon-en"></span>en</a></option>
-                                    <option><a class="dropdown-item" href="{{ url('locale/ru') }}"><span class="flag-icon flag-icon-fr"></span>ru</a></option>
-                                    <option><a class="dropdown-item" href="{{ url('locale/uz') }}"><span class="flag-icon flag-icon-fr"></span>uz</a></option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="form-control" id="lang_sel">
-                                    <option><a href="{{ url('locale/en') }}">en</a></option>
-                                    <option><a href="{{ url('locale/ru') }}">ru</a></option>
-                                    <option><a href="{{ url('locale/uz') }}">uz</a></option>
-                                </select>
-                            </div>
+
                         </div>
 
                         <!-- User Account Menu -->
@@ -69,15 +56,15 @@
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
-                                <img src="http://infyom.com/images/logo/blue_logo_150x150.jpg"
-                                     class="user-image" alt="User Image"/>
+                                <img src="https://scontent.fala5-1.fna.fbcdn.net/v/t1.0-9/11873414_1015969575099938_7698530140966408509_n.png?_nc_cat=104&cb=846ca55b-ee17756f&ccb=2&_nc_sid=09cbfe&_nc_ohc=UosntMdvp3EAX8uZ5Yf&_nc_ht=scontent.fala5-1.fna&oh=8599a84be14e74c5573e1200ede1897e&oe=5FBFA437"
+                                     class="user-image" alt="User Image"/> <!--http://infyom.com/images/logo/blue_logo_150x150.jpg-->
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                 <span class="hidden-xs">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
-                                    <img src="http://infyom.com/images/logo/blue_logo_150x150.jpg"
+                                    <img src="https://scontent.fala5-1.fna.fbcdn.net/v/t1.0-9/11873414_1015969575099938_7698530140966408509_n.png?_nc_cat=104&cb=846ca55b-ee17756f&ccb=2&_nc_sid=09cbfe&_nc_ohc=UosntMdvp3EAX8uZ5Yf&_nc_ht=scontent.fala5-1.fna&oh=8599a84be14e74c5573e1200ede1897e&oe=5FBFA437"
                                          class="img-circle" alt="User Image"/>
                                     <p>
                                         {{ Auth::user()->name }}
@@ -174,22 +161,9 @@
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/js/adminlte.min.js"></script>
-
+    <script src="{{ URL::asset('main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
-    <script type="text/javascript">
-        $( document ).ready(function() {
-            var x = document.getElementsByTagName("html")[0].getAttribute("lang");
-            alert(x);
-            $("#lang_sel").val(x);
-        });
-        $('#lang_sel').on('change', function() {
-            location.href = "/locale/"+this.value;
-            $("#lang_sel").val(this.value);
-            console.log($("#lang_sel").val(this.value));
-        });
-        //setInterval(() => alert(window.navigator.onLine ), 2000);
-    </script>
     @stack('scripts')
 </body>
 </html>

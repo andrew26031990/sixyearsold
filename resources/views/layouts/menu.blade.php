@@ -1,13 +1,13 @@
 <li class="{{ Request::is('teachers*') ? 'active' : '' }}">
-    <a href="{{ route('teachers.index') }}"><i class="fa fa-edit"></i><span>Teachers</span></a>
+    <a href="{{ route('teachers.index') }}"><i class="fa fa-edit"></i><span>@lang('message.teachers')</span></a>
 </li>
 
 <li class="{{ Request::is('pupils*') ? 'active' : '' }}">
-    <a href="{{ route('pupils.index') }}"><i class="fa fa-edit"></i><span>Pupils</span></a>
+    <a href="{{ route('pupils.index') }}"><i class="fa fa-edit"></i><span>@lang('message.pupils')</span></a>
 </li>
 
 <li class="{{ Request::is('institutions*') ? 'active' : '' }}">
-    <a href="{{ route('institutions.index') }}"><i class="fa fa-edit"></i><span>Institutions</span></a>
+    <a href="{{ route('institutions.index') }}"><i class="fa fa-edit"></i><span>@lang('message.institutions')</span></a>
 </li>
 
 <li class="{{ Request::is('groups*') ? 'active' : '' }}">

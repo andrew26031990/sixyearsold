@@ -153,4 +153,11 @@ class UsersController extends AppBaseController
 
         return redirect(route('users.index'));
     }
+
+    public function setUserLanguage(){
+        $user_id = $_GET['user_id'];
+        $lang = $_GET['lang'];
+        $this->usersRepository->update(array('lang' => $lang), $user_id);
+        return "Языковые настройки сайта изменены";
+    }
 }

@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 /*Route::get('/', function () {
     return view('/home');
 });*/
-Route::get('locale/{locale}', function ($locale){
+/*Route::get('locale/{locale}', function ($locale){
     Session::put('locale', $locale);
     return redirect()->back();
-});
+});*/
 
 Route::get('/', function () {
     return redirect('login');
@@ -29,6 +29,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('langChange', [App\Http\Controllers\UsersController::class, 'setUserLanguage']);
     Route::resource('teachers', App\Http\Controllers\TeachersController::class);
     Route::resource('communities', App\Http\Controllers\CommunitiesController::class);
     Route::resource('pupils', App\Http\Controllers\PupilsController::class);
@@ -39,9 +40,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('districts', App\Http\Controllers\DistrictsController::class);
     Route::resource('educationDegrees', App\Http\Controllers\EducationDegreesController::class);
     Route::resource('users', App\Http\Controllers\UsersController::class);
-    /*Route::middleware('can:admin')->group(function () {
-
-    });*/
 });
 
 

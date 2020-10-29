@@ -37,7 +37,8 @@ class Users extends Model
         'email_verified_at',
         'password',
         'remember_token',
-        'role'
+        'role',
+        'lang'
     ];
 
     /**

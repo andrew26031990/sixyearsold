@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'welcome'       => 'Welcome to our application',
+    'teachers'       => 'O\'stozlar',
+    'pupils'       => 'Tarbiyalanuvchi',
+    'institutions'       => 'Muossasa'
 ];

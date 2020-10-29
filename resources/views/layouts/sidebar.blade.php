@@ -6,7 +6,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="http://infyom.com/images/logo/blue_logo_150x150.jpg" class="img-circle"
+                <img src="https://scontent.fala5-1.fna.fbcdn.net/v/t1.0-9/11873414_1015969575099938_7698530140966408509_n.png?_nc_cat=104&cb=846ca55b-ee17756f&ccb=2&_nc_sid=09cbfe&_nc_ohc=UosntMdvp3EAX8uZ5Yf&_nc_ht=scontent.fala5-1.fna&oh=8599a84be14e74c5573e1200ede1897e&oe=5FBFA437" class="img-circle"
                      alt="User Image"/>
             </div>
             <div class="pull-left info">
