@@ -1,9 +1,3 @@
-<!-- Group Id Field -->
-<div class="form-group">
-    {!! Form::label('group_id', 'Group Id:') !!}
-    <p>{{ $pupils->group_id }}</p>
-</div>
-
 <!-- Full Name Field -->
 <div class="form-group">
     {!! Form::label('full_name', 'Full Name:') !!}

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePupilsRequest;
 use App\Http\Requests\UpdatePupilsRequest;
+use App\Models\Pupils;
 use App\Repositories\PupilsRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Storage;
 use Response;
 
 class PupilsController extends AppBaseController
@@ -30,7 +32,6 @@ class PupilsController extends AppBaseController
     public function index(Request $request)
     {
         $pupils = $this->pupilsRepository->paginate(10);
-
         return view('pupils.index')
             ->with('pupils', $pupils);
     }
@@ -55,14 +56,19 @@ class PupilsController extends AppBaseController
     public function store(CreatePupilsRequest $request)
     {
         $input = $request->all();
-
-        $pupils = $this->pupilsRepository->create($input);
-
+        //$pupils = $this->pupilsRepository->create($input);
+        $pupils = new Pupils([
+            'full_name'=>$request->get('full_name'),
+            'birthday'=>$request->get('birthday'),
+            'birth_certificate_number'=>$request->get('birth_certificate_number'),
+            'birth_certificate_date'=>$request->get('birth_certificate_date'),
+            'birth_certificate_file'=>$request->birth_certificate_file->get('originalName'),
+            'has_certificate'=>$request->get('has_certificate'),
+        ]);
+        $pupils->save();
         Flash::success('Pupils saved successfully.');
-
         return redirect(route('pupils.index'));
     }
-
     /**
      * Display the specified Pupils.
      *

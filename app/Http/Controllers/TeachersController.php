@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTeachersRequest;
 use App\Http\Requests\UpdateTeachersRequest;
+use App\Models\Districts;
+use App\Models\EducationDegrees;
+use App\Models\Institutions;
+use App\Models\Regions;
+use App\Models\Teachers;
 use App\Repositories\TeachersRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 class TeachersController extends AppBaseController
@@ -15,9 +21,21 @@ class TeachersController extends AppBaseController
     /** @var  TeachersRepository */
     private $teachersRepository;
 
-    public function __construct(TeachersRepository $teachersRepo)
+    protected $ed_degrees;
+
+    protected $institutions;
+
+    protected $regions;
+
+    protected $districts;
+
+    public function __construct(TeachersRepository $teachersRepo, EducationDegrees $ed_degrees, Institutions $institutions, Regions $regions, Districts $districts)
     {
         $this->teachersRepository = $teachersRepo;
+        $this->ed_degrees = $ed_degrees;
+        $this->institutions = $institutions;
+        $this->regions = $regions;
+        $this->districts = $districts;
     }
 
     /**
@@ -29,7 +47,11 @@ class TeachersController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $teachers = $this->teachersRepository->paginate(10);
+        $teachers = DB::table('education_degrees')->join('teachers', 'teachers.education_degree_id', '=', 'education_degrees.id')->
+        join('institutions', 'teachers.institution_id', '=', 'institutions.id')->
+        join('regions', 'teachers.region_id', '=', 'regions.id')->
+        join('districts', 'teachers.district_id', '=', 'districts.id')->
+        select('education_degrees.name as ed_name', 'teachers.*', 'institutions.name as i_name', 'regions.name as r_name', 'districts.name as d_name')->paginate(10);
 
         return view('teachers.index')
             ->with('teachers', $teachers);
@@ -42,7 +64,8 @@ class TeachersController extends AppBaseController
      */
     public function create()
     {
-        return view('teachers.create');
+        return view('teachers.create')->with(['ed_degrees' => $this->ed_degrees->all(), 'institutions'=>$this->institutions->all(),
+            'regions'=>$this->regions->all(), 'districts'=>$this->districts->all()]);
     }
 
     /**
@@ -72,7 +95,14 @@ class TeachersController extends AppBaseController
      */
     public function show($id)
     {
-        $teachers = $this->teachersRepository->find($id);
+        //$teachers = $this->teachersRepository->find($id);
+
+        $teachers = DB::table('education_degrees')->join('teachers', 'teachers.education_degree_id', '=', 'education_degrees.id')->
+        join('institutions', 'teachers.institution_id', '=', 'institutions.id')->
+        join('regions', 'teachers.region_id', '=', 'regions.id')->
+        join('districts', 'teachers.district_id', '=', 'districts.id')->where('teachers.id', $id)->
+        select('education_degrees.name as ed_name', 'teachers.*', 'institutions.name as i_name', 'regions.name as r_name', 'districts.name as d_name')->
+        get('teachers.id');
 
         if (empty($teachers)) {
             Flash::error('Teachers not found');
@@ -90,17 +120,22 @@ class TeachersController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        $teachers = $this->teachersRepository->find($id);
 
+        $teachers = $this->teachersRepository->find($id);
+        /*$ed_degrees = EducationDegrees::all();
+        $institutions = Institutions::all();
+        $regions = Regions::all();
+        $districts = Districts::all();*/
         if (empty($teachers)) {
             Flash::error('Teachers not found');
 
             return redirect(route('teachers.index'));
         }
 
-        return view('teachers.edit')->with('teachers', $teachers);
+        return view('teachers.edit')->with(['teachers' => $teachers, 'ed_degrees' => $this->ed_degrees->all(), 'institutions'=>$this->institutions->all(),
+            'regions'=>$this->regions->all(), 'districts'=>$this->districts->all(), 'request'=>$request]);
     }
 
     /**

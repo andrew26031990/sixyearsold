@@ -10,9 +10,9 @@
         <th>Education Document File</th>
         <th>Education Document Number</th>
         <th>Education Document Date</th>
-        <th>District Id</th>
-        <th>Region Id</th>
-        <th>Institution Id</th>
+        <th>District</th>
+        <th>Region</th>
+        <th>Institution</th>
                 <th colspan="3">Action</th>
             </tr>
         </thead>
@@ -21,15 +21,15 @@
             <tr>
                 <td>{{ $teacher->full_name }}</td>
                 <td>{{ $teacher->birthday }}</td>
-                <td>{{ $teacher->education_degree_id }}</td>
+                <td>{{ $teacher->ed_name }}</td>
                 <td>{{ $teacher->specialization }}</td>
                 <td>{{ $teacher->education_document_name }}</td>
                 <td>{{ $teacher->education_document_file }}</td>
                 <td>{{ $teacher->education_document_number }}</td>
                 <td>{{ $teacher->education_document_date }}</td>
-                <td>{{ $teacher->district_id }}</td>
-                <td>{{ $teacher->region_id }}</td>
-                <td>{{ $teacher->institution_id }}</td>
+                <td>{{ $teacher->d_name }}</td>
+                <td>{{ $teacher->r_name }}</td>
+                <td>{{ $teacher->i_name }}</td>
                     <td>
                         {!! Form::open(['route' => ['teachers.destroy', $teacher->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

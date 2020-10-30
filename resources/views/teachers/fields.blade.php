@@ -7,23 +7,17 @@
 <!-- Birthday Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('birthday', 'Birthday:') !!}
-    {!! Form::text('birthday', null, ['class' => 'form-control','id'=>'birthday']) !!}
+    {!! Form::text('birthday', null, ['class' => 'form-control date','id'=>'birthday']) !!}
 </div>
-
-@push('scripts')
-    <script type="text/javascript">
-        $('#birthday').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: true,
-            sideBySide: true
-        })
-    </script>
-@endpush
 
 <!-- Education Degree Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('education_degree_id', 'Education Degree Id:') !!}
-    {!! Form::number('education_degree_id', null, ['class' => 'form-control']) !!}
+    <select class="form-control" name="education_degree_id">
+        @foreach($ed_degrees as $ed_degree)
+            <option value="{{$ed_degree->id}}">{{$ed_degree->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Specialization Field -->
@@ -53,39 +47,52 @@
 <!-- Education Document Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('education_document_date', 'Education Document Date:') !!}
-    {!! Form::text('education_document_date', null, ['class' => 'form-control','id'=>'education_document_date']) !!}
+    {!! Form::text('education_document_date', null, ['class' => 'form-control date','id'=>'education_document_date']) !!}
 </div>
-
-@push('scripts')
-    <script type="text/javascript">
-        $('#education_document_date').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: true,
-            sideBySide: true
-        })
-    </script>
-@endpush
 
 <!-- District Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('district_id', 'District Id:') !!}
-    {!! Form::number('district_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('education_degree_id', 'Education Degree Id:') !!}
+    <select class="form-control" name="district_id">
+        @foreach($districts as $district)
+            <option value="{{$district->id}}">{{$district->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Region Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('region_id', 'Region Id:') !!}
-    {!! Form::number('region_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('education_degree_id', 'Education Degree Id:') !!}
+    <select class="form-control" name="region_id">
+        @foreach($regions as $region)
+            <option value="{{$region->id}}">{{$region->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Institution Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('institution_id', 'Institution Id:') !!}
-    {!! Form::number('institution_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('education_degree_id', 'Education Degree Id:') !!}
+    <select class="form-control" name="institution_id">
+        @foreach($institutions as $institution)
+            <option value="{{$institution->id}}">{{$institution->name}}</option>
+        @endforeach
+    </select>
 </div>
+
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
     <a href="{{ route('teachers.index') }}" class="btn btn-default">Cancel</a>
 </div>
+
+@push('scripts')
+    <script type="text/javascript">
+        $('.date').datetimepicker({
+            format: 'YYYY-MM-DD',
+            useCurrent: true,
+            sideBySide: true
+        })
+    </script>
+@endpush

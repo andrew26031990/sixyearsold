@@ -1,9 +1,3 @@
-<!-- Group Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('group_id', 'Group Id:') !!}
-    {!! Form::number('group_id', null, ['class' => 'form-control']) !!}
-</div>
-
 <!-- Full Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('full_name', 'Full Name:') !!}
@@ -19,7 +13,7 @@
 @push('scripts')
     <script type="text/javascript">
         $('#birthday').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
+            format: 'YYYY-MM-DD',
             useCurrent: true,
             sideBySide: true
         })
@@ -41,7 +35,7 @@
 @push('scripts')
     <script type="text/javascript">
         $('#birth_certificate_date').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
+            format: 'YYYY-MM-DD',
             useCurrent: true,
             sideBySide: true
         })
@@ -51,7 +45,7 @@
 <!-- Birth Certificate File Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('birth_certificate_file', 'Birth Certificate File:') !!}
-    {!! Form::text('birth_certificate_file', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    {!! Form::file('birth_certificate_file', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
 </div>
 
 <!-- Has Certificate Field -->

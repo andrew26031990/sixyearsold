@@ -2,7 +2,6 @@
     <table class="table" id="pupils-table">
         <thead>
             <tr>
-                <th>Group Id</th>
         <th>Full Name</th>
         <th>Birthday</th>
         <th>Birth Certificate Number</th>
@@ -15,7 +14,6 @@
         <tbody>
         @foreach($pupils as $pupil)
             <tr>
-                <td>{{ $pupil->group_id }}</td>
             <td>{{ $pupil->full_name }}</td>
             <td>{{ $pupil->birthday }}</td>
             <td>{{ $pupil->birth_certificate_number }}</td>

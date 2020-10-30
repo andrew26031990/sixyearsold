@@ -30,7 +30,7 @@ class Pupils extends Model
 
 
     protected $dates = ['deleted_at'];
-
+    public $timestamps = false;
 
 
     public $fillable = [
@@ -55,7 +55,7 @@ class Pupils extends Model
         'birthday' => 'date',
         'birth_certificate_number' => 'string',
         'birth_certificate_date' => 'date',
-        'birth_certificate_file' => 'string',
+        //'birth_certificate_file' => 'string',
         'has_certificate' => 'boolean'
     ];
 
@@ -70,7 +70,7 @@ class Pupils extends Model
         'birthday' => 'nullable',
         'birth_certificate_number' => 'nullable|string|max:50',
         'birth_certificate_date' => 'nullable',
-        'birth_certificate_file' => 'nullable|string|max:255',
+        //'birth_certificate_file' => 'nullable|string',
         'has_certificate' => 'nullable|boolean'
     ];
 
