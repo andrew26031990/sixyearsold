@@ -6,18 +6,22 @@ use App\Http\Requests\CreateCommunitiesRequest;
 use App\Http\Requests\UpdateCommunitiesRequest;
 use App\Repositories\CommunitiesRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\DistrictsRepository;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 class CommunitiesController extends AppBaseController
 {
     /** @var  CommunitiesRepository */
     private $communitiesRepository;
+    private $districtsRepository;
 
-    public function __construct(CommunitiesRepository $communitiesRepo)
+    public function __construct(CommunitiesRepository $communitiesRepo, DistrictsRepository $districtsRepo)
     {
         $this->communitiesRepository = $communitiesRepo;
+        $this->districtsRepository = $districtsRepo;
     }
 
     /**
@@ -29,7 +33,9 @@ class CommunitiesController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $communities = $this->communitiesRepository->paginate(10);
+        $communities = DB::table('communities')->
+        join('districts', 'communities.district_id', '=', 'districts.id')->
+        select('districts.name as d_name', 'communities.*')->paginate(10);
 
         return view('communities.index')
             ->with('communities', $communities);
@@ -42,7 +48,7 @@ class CommunitiesController extends AppBaseController
      */
     public function create()
     {
-        return view('communities.create');
+        return view('communities.create')->with('districts', $this->districtsRepository->all());
     }
 
     /**
@@ -72,8 +78,9 @@ class CommunitiesController extends AppBaseController
      */
     public function show($id)
     {
-        $communities = $this->communitiesRepository->find($id);
-
+        $communities = DB::table('communities')->join('districts', 'communities.district_id', '=', 'districts.id')->
+        where('communities.id', $id)->
+        select('communities.*', 'districts.name as d_name')->first();
         if (empty($communities)) {
             Flash::error('Communities not found');
 
@@ -100,7 +107,7 @@ class CommunitiesController extends AppBaseController
             return redirect(route('communities.index'));
         }
 
-        return view('communities.edit')->with('communities', $communities);
+        return view('communities.edit')->with(['communities' => $communities, 'districts' => $this->districtsRepository->all()]);
     }
 
     /**

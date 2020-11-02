@@ -2,7 +2,7 @@
     <table class="table" id="regions-table">
         <thead>
             <tr>
-                <th>Country Id</th>
+                <th>Country</th>
         <th>Name</th>
                 <th colspan="3">Action</th>
             </tr>
@@ -10,7 +10,7 @@
         <tbody>
         @foreach($regions as $regions)
             <tr>
-                <td>{{ $regions->country_id }}</td>
+                <td>{{ $regions->c_name }}</td>
             <td>{{ $regions->name }}</td>
                 <td>
                     {!! Form::open(['route' => ['regions.destroy', $regions->id], 'method' => 'delete']) !!}

@@ -1,3 +1,13 @@
+<!-- Group Name Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('group_id', 'Group:') !!}
+    <select class="form-control" name="group_id">
+        @foreach($groups as $group)
+            <option value="{{$group->id}}" {{ isset($pupils->group_id) && $pupils->group_id == $group->id ? 'selected' : '' }}>{{$group->name}}</option>
+        @endforeach
+    </select>
+</div>
+
 <!-- Full Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('full_name', 'Full Name:') !!}
@@ -53,7 +63,7 @@
     {!! Form::label('has_certificate', 'Has Certificate:') !!}
     <label class="checkbox-inline">
         {!! Form::hidden('has_certificate', 0) !!}
-        {!! Form::checkbox('has_certificate', '1', null) !!}
+        {!! Form::checkbox('has_certificate', '1', null, array('style'=>'margin:-6px 0 0')) !!}
     </label>
 </div>
 

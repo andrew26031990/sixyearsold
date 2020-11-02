@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateGroupsRequest;
 use App\Http\Requests\UpdateGroupsRequest;
+use App\Repositories\CountriesRepository;
+use App\Repositories\DistrictsRepository;
 use App\Repositories\GroupsRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\InstitutionsRepository;
+use App\Repositories\RegionsRepository;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 class GroupsController extends AppBaseController
@@ -15,9 +20,22 @@ class GroupsController extends AppBaseController
     /** @var  GroupsRepository */
     private $groupsRepository;
 
-    public function __construct(GroupsRepository $groupsRepo)
+    private $districtsRepository;
+
+    protected $institutionsRepository;
+
+    protected $regionsRepository;
+
+    protected $countriesRepository;
+
+
+    public function __construct(GroupsRepository $groupsRepo, DistrictsRepository  $districtsRepo, CountriesRepository $countriesRepo, RegionsRepository $regionsRepo, InstitutionsRepository $institutionsRepo)
     {
         $this->groupsRepository = $groupsRepo;
+        $this->districtsRepository = $districtsRepo;
+        $this->countriesRepository = $countriesRepo;
+        $this->regionsRepository = $regionsRepo;
+        $this->institutionsRepository = $institutionsRepo;
     }
 
     /**
@@ -29,8 +47,12 @@ class GroupsController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $groups = $this->groupsRepository->paginate(10);
-
+        //$groups = $this->groupsRepository->paginate(10);
+        $groups = DB::table('groups')->join('institutions', 'groups.institution_id', '=', 'institutions.id')->
+        join('countries', 'groups.country_id', '=', 'countries.id')->
+        join('regions', 'groups.region_id', '=', 'regions.id')->
+        join('districts', 'groups.district_id', '=', 'districts.id')->
+        select('countries.name as c_name', 'groups.*', 'institutions.name as i_name', 'regions.name as r_name', 'districts.name as d_name')->paginate(10);
         return view('groups.index')
             ->with('groups', $groups);
     }
@@ -42,7 +64,7 @@ class GroupsController extends AppBaseController
      */
     public function create()
     {
-        return view('groups.create');
+        return view('groups.create')->with(['districts' => $this->districtsRepository->all(), 'countries' => $this->countriesRepository->all(), 'regions' => $this->regionsRepository->all(), 'institutions' => $this->institutionsRepository->all()]);
     }
 
     /**
@@ -72,7 +94,11 @@ class GroupsController extends AppBaseController
      */
     public function show($id)
     {
-        $groups = $this->groupsRepository->find($id);
+        $groups = DB::table('groups')->join('institutions', 'groups.institution_id', '=', 'institutions.id')->
+        join('countries', 'groups.country_id', '=', 'countries.id')->
+        join('regions', 'groups.region_id', '=', 'regions.id')->
+        join('districts', 'groups.district_id', '=', 'districts.id')->where('groups.id', $id)->
+        select('countries.name as c_name', 'groups.*', 'institutions.name as i_name', 'regions.name as r_name', 'districts.name as d_name')->first();
 
         if (empty($groups)) {
             Flash::error('Groups not found');
@@ -100,7 +126,7 @@ class GroupsController extends AppBaseController
             return redirect(route('groups.index'));
         }
 
-        return view('groups.edit')->with('groups', $groups);
+        return view('groups.edit')->with(['groups' => $groups, 'districts' => $this->districtsRepository->all(), 'countries' => $this->countriesRepository->all(), 'regions' => $this->regionsRepository->all(), 'institutions' => $this->institutionsRepository->all()]);
     }
 
     /**

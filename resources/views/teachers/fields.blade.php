@@ -35,7 +35,8 @@
 <!-- Education Document File Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('education_document_file', 'Education Document File:') !!}
-    {!! Form::text('education_document_file', null, ['class' => 'form-control','maxlength' => 200,'maxlength' => 200]) !!}
+    {{--{!! Form::text('education_document_file', null, ['class' => 'form-control','maxlength' => 200,'maxlength' => 200]) !!}--}}
+    {!! Form::file('education_document_file', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
 </div>
 
 <!-- Education Document Number Field -->

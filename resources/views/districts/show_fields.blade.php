@@ -1,7 +1,7 @@
 <!-- Region Id Field -->
 <div class="form-group">
-    {!! Form::label('region_id', 'Region Id:') !!}
-    <p>{{ $districts->region_id }}</p>
+    {!! Form::label('region_id', 'Region:') !!}
+    <p>{{ $districts->r_name }}</p>
 </div>
 
 <!-- Name Field -->

@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePupilsRequest;
 use App\Http\Requests\UpdatePupilsRequest;
 use App\Models\Pupils;
+use App\Repositories\GroupsRepository;
 use App\Repositories\PupilsRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Response;
 
@@ -17,9 +19,12 @@ class PupilsController extends AppBaseController
     /** @var  PupilsRepository */
     private $pupilsRepository;
 
-    public function __construct(PupilsRepository $pupilsRepo)
+    private $groupsRepository;
+
+    public function __construct(PupilsRepository $pupilsRepo, GroupsRepository $groupsRepo)
     {
         $this->pupilsRepository = $pupilsRepo;
+        $this->groupsRepository = $groupsRepo;
     }
 
     /**
@@ -29,9 +34,11 @@ class PupilsController extends AppBaseController
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $pupils = $this->pupilsRepository->paginate(10);
+        $pupils = DB::table('pupils')->
+        join('groups', 'pupils.group_id', '=', 'groups.id')->
+        select('groups.name as g_name', 'pupils.*')->orderBy('pupils.id', 'DESC')->paginate(10);
         return view('pupils.index')
             ->with('pupils', $pupils);
     }
@@ -43,7 +50,7 @@ class PupilsController extends AppBaseController
      */
     public function create()
     {
-        return view('pupils.create');
+        return view('pupils.create')->with(['groups'=>$this->groupsRepository->all()]);
     }
 
     /**
@@ -56,13 +63,13 @@ class PupilsController extends AppBaseController
     public function store(CreatePupilsRequest $request)
     {
         $input = $request->all();
-        //$pupils = $this->pupilsRepository->create($input);
         $pupils = new Pupils([
+            'group_id'=>$request->get('group_id'),
             'full_name'=>$request->get('full_name'),
             'birthday'=>$request->get('birthday'),
             'birth_certificate_number'=>$request->get('birth_certificate_number'),
             'birth_certificate_date'=>$request->get('birth_certificate_date'),
-            'birth_certificate_file'=>$request->birth_certificate_file->get('originalName'),
+            'birth_certificate_file'=> $this->uploadFile($request, 'uploads/pupils/birth_certificate'), //
             'has_certificate'=>$request->get('has_certificate'),
         ]);
         $pupils->save();
@@ -106,7 +113,7 @@ class PupilsController extends AppBaseController
             return redirect(route('pupils.index'));
         }
 
-        return view('pupils.edit')->with('pupils', $pupils);
+        return view('pupils.edit')->with(['pupils' => $pupils, 'groups' => $this->groupsRepository->all()]);
     }
 
     /**
@@ -126,7 +133,11 @@ class PupilsController extends AppBaseController
 
             return redirect(route('pupils.index'));
         }
-
+        dd($pupils);
+        if($request->file('birth_certificate_file')){
+            $this->deleteFile('uploads/pupils/birth_certificate/', $pupils->birth_certificate_file);
+            $this->uploadFile($request, 'uploads/pupils/birth_certificate/');
+        }
         $pupils = $this->pupilsRepository->update($request->all(), $id);
 
         Flash::success('Pupils updated successfully.');
@@ -152,11 +163,22 @@ class PupilsController extends AppBaseController
 
             return redirect(route('pupils.index'));
         }
-
+        $this->deleteFile('uploads/pupils/birth_certificate/', $pupils->birth_certificate_file);
         $this->pupilsRepository->delete($id);
 
         Flash::success('Pupils deleted successfully.');
 
         return redirect(route('pupils.index'));
+    }
+
+    public function uploadFile($request, $destinationPath){
+        $file = $request->file('birth_certificate_file');
+        $newNameImage = date('Ymdhis').'_'.$file->getClientOriginalName();
+        $file->move($destinationPath, $newNameImage);
+        return $newNameImage;
+    }
+
+    public function deleteFile($path, $file_name){
+        unlink($path.$file_name);
     }
 }

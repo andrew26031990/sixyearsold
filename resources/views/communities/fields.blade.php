@@ -1,7 +1,11 @@
 <!-- District Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('district_id', 'District Id:') !!}
-    {!! Form::number('district_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('district_id', 'District:') !!}
+    <select class="form-control" name="district_id">
+        @foreach($districts as $district)
+            <option value="{{$district->id}}" {{ isset($communities->district_id) && $communities->district_id == $district->id ? 'selected' : '' }}>{{$district->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Name Field -->

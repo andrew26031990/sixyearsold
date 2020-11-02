@@ -2,6 +2,7 @@
     <table class="table" id="pupils-table">
         <thead>
             <tr>
+        <th>Group</th>
         <th>Full Name</th>
         <th>Birthday</th>
         <th>Birth Certificate Number</th>
@@ -14,21 +15,22 @@
         <tbody>
         @foreach($pupils as $pupil)
             <tr>
-            <td>{{ $pupil->full_name }}</td>
-            <td>{{ $pupil->birthday }}</td>
-            <td>{{ $pupil->birth_certificate_number }}</td>
-            <td>{{ $pupil->birth_certificate_date }}</td>
-            <td>{{ $pupil->birth_certificate_file }}</td>
-            <td>{{ $pupil->has_certificate }}</td>
-                <td>
-                    {!! Form::open(['route' => ['pupils.destroy', $pupil->id], 'method' => 'delete']) !!}
-                    <div class='btn-group'>
-                        <a href="{{ route('pupils.show', [$pupil->id]) }}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                        <a href="{{ route('pupils.edit', [$pupil->id]) }}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                    </div>
-                    {!! Form::close() !!}
-                </td>
+                <td>{{ $pupil->g_name }}</td>
+                <td>{{ $pupil->full_name }}</td>
+                <td>{{ $pupil->birthday }}</td>
+                <td>{{ $pupil->birth_certificate_number }}</td>
+                <td>{{ $pupil->birth_certificate_date }}</td>
+                <td><a href="{{url('uploads/pupils/birth_certificate').'/'.$pupil->birth_certificate_file }}" download>{{$pupil->birth_certificate_file}}</a></td>
+                <td>{{ $pupil->has_certificate }}</td>
+                    <td>
+                        {!! Form::open(['route' => ['pupils.destroy', $pupil->id], 'method' => 'delete']) !!}
+                        <div class='btn-group'>
+                            <a href="{{ route('pupils.show', [$pupil->id]) }}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                            <a href="{{ route('pupils.edit', [$pupil->id]) }}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                            {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        </div>
+                        {!! Form::close() !!}
+                    </td>
             </tr>
         @endforeach
         </tbody>

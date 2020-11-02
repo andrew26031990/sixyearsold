@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateInstitutionsRequest;
 use App\Http\Requests\UpdateInstitutionsRequest;
+use App\Models\Countries;
+use App\Models\Districts;
+use App\Models\Regions;
 use App\Repositories\InstitutionsRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 class InstitutionsController extends AppBaseController
@@ -15,9 +19,18 @@ class InstitutionsController extends AppBaseController
     /** @var  InstitutionsRepository */
     private $institutionsRepository;
 
-    public function __construct(InstitutionsRepository $institutionsRepo)
+    protected $regions;
+
+    protected $districts;
+
+    protected $countries;
+
+    public function __construct(InstitutionsRepository $institutionsRepo, Regions $regions, Districts $districts, Countries $countries)
     {
         $this->institutionsRepository = $institutionsRepo;
+        $this->regions = $regions;
+        $this->districts = $districts;
+        $this->countries = $countries;
     }
 
     /**
@@ -29,7 +42,12 @@ class InstitutionsController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $institutions = $this->institutionsRepository->paginate(10);
+        //$institutions = $this->institutionsRepository->paginate(10);
+        $institutions = DB::table('institutions')->
+        join('countries', 'institutions.country_id', '=', 'countries.id')->
+        join('regions', 'institutions.region_id', '=', 'regions.id')->
+        join('districts', 'institutions.district_id', '=', 'districts.id')->
+        select('countries.name as c_name', 'institutions.*', 'regions.name as r_name', 'districts.name as d_name')->paginate(10);
 
         return view('institutions.index')
             ->with('institutions', $institutions);
@@ -42,7 +60,7 @@ class InstitutionsController extends AppBaseController
      */
     public function create()
     {
-        return view('institutions.create');
+        return view('institutions.create')->with(['countries'=>$this->countries->all(), 'regions'=>$this->regions->all(), 'districts'=>$this->districts->all()]);
     }
 
     /**
@@ -55,7 +73,6 @@ class InstitutionsController extends AppBaseController
     public function store(CreateInstitutionsRequest $request)
     {
         $input = $request->all();
-
         $institutions = $this->institutionsRepository->create($input);
 
         Flash::success('Institutions saved successfully.');
@@ -72,7 +89,11 @@ class InstitutionsController extends AppBaseController
      */
     public function show($id)
     {
-        $institutions = $this->institutionsRepository->find($id);
+        $institutions = DB::table('institutions')->
+        join('countries', 'institutions.country_id', '=', 'countries.id')->
+        join('regions', 'institutions.region_id', '=', 'regions.id')->
+        join('districts', 'institutions.district_id', '=', 'districts.id')->where('institutions.id', $id)->
+        select('countries.name as c_name', 'institutions.*', 'regions.name as r_name', 'districts.name as d_name')->first();
 
         if (empty($institutions)) {
             Flash::error('Institutions not found');
@@ -100,7 +121,7 @@ class InstitutionsController extends AppBaseController
             return redirect(route('institutions.index'));
         }
 
-        return view('institutions.edit')->with('institutions', $institutions);
+        return view('institutions.edit')->with(['institutions' => $institutions, 'countries'=>$this->countries->all(), 'regions'=>$this->regions->all(), 'districts'=>$this->districts->all()]);
     }
 
     /**

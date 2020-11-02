@@ -1,7 +1,11 @@
 <!-- Region Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('region_id', 'Region Id:') !!}
-    {!! Form::number('region_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('region_id', 'Region:') !!}
+    <select class="form-control" name="region_id">
+        @foreach($regions as $region)
+            <option value="{{$region->id}}" {{ isset($districts->region_id) && $districts->region_id == $region->id ? 'selected' : '' }}>{{$region->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Name Field -->

@@ -6,26 +6,42 @@
 
 <!-- Country Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('country_id', 'Country Id:') !!}
-    {!! Form::number('country_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('country_id', 'Country:') !!}
+    <select class="form-control" name="country_id">
+        @foreach($countries as $country)
+            <option value="{{$country->id}}" {{ isset($groups->country_id) && $groups->country_id == $country->id ? 'selected' : '' }}>{{$country->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Region Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('region_id', 'Region Id:') !!}
-    {!! Form::number('region_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('region_id', 'Region:') !!}
+    <select class="form-control" name="region_id">
+        @foreach($regions as $region)
+            <option value="{{$region->id}}" {{ isset($groups->region_id) && $groups->region_id == $region->id ? 'selected' : '' }}>{{$region->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- District Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('district_id', 'District Id:') !!}
-    {!! Form::number('district_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('district_id', 'District:') !!}
+    <select class="form-control" name="district_id">
+        @foreach($districts as $district)
+            <option value="{{$district->id}}" {{ isset($groups->district_id) && $groups->district_id == $district->id ? 'selected' : '' }}>{{$district->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Institution Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('institution_id', 'Institution Id:') !!}
-    {!! Form::number('institution_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('institution_id', 'Institution:') !!}
+    <select class="form-control" name="institution_id">
+        @foreach($institutions as $institution)
+            <option value="{{$institution->id}}" {{ isset($groups->institution_id) && $groups->institution_id == $institution->id ? 'selected' : '' }}>{{$institution->name}}</option>
+        @endforeach
+    </select>
 </div>
 
 <!-- Address Field -->

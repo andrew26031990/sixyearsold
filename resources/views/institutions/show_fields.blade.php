@@ -1,19 +1,19 @@
 <!-- Country Id Field -->
 <div class="form-group">
-    {!! Form::label('country_id', 'Country Id:') !!}
-    <p>{{ $institutions->country_id }}</p>
+    {!! Form::label('country_id', 'Country:') !!}
+    <p>{{ $institutions->c_name }}</p>
 </div>
 
 <!-- Region Id Field -->
 <div class="form-group">
-    {!! Form::label('region_id', 'Region Id:') !!}
-    <p>{{ $institutions->region_id }}</p>
+    {!! Form::label('region_id', 'Region:') !!}
+    <p>{{ $institutions->r_name }}</p>
 </div>
 
 <!-- District Id Field -->
 <div class="form-group">
-    {!! Form::label('district_id', 'District Id:') !!}
-    <p>{{ $institutions->district_id }}</p>
+    {!! Form::label('district_id', 'District:') !!}
+    <p>{{ $institutions->d_name }}</p>
 </div>
 
 <!-- Name Field -->

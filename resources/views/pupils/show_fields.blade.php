@@ -25,12 +25,12 @@
 <!-- Birth Certificate File Field -->
 <div class="form-group">
     {!! Form::label('birth_certificate_file', 'Birth Certificate File:') !!}
-    <p>{{ $pupils->birth_certificate_file }}</p>
+    <p><img style="width: 300px; height: 300px;" src="{{url('uploads/pupils/birth_certificate').'/'.$pupils->birth_certificate_file}}" /></p>
 </div>
 
 <!-- Has Certificate Field -->
 <div class="form-group">
     {!! Form::label('has_certificate', 'Has Certificate:') !!}
-    <p>{{ $pupils->has_certificate }}</p>
+    <p>{{ $pupils->has_certificate == 1 ? 'yes' : 'no' }}</p>
 </div>
 

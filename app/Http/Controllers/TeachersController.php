@@ -78,9 +78,20 @@ class TeachersController extends AppBaseController
     public function store(CreateTeachersRequest $request)
     {
         $input = $request->all();
-
-        $teachers = $this->teachersRepository->create($input);
-
+        $teachers = new Teachers([
+            'full_name'=>$request->get('full_name'),
+            'birthday'=>$request->get('birthday'),
+            'education_degree_id'=>$request->get('education_degree_id'),
+            'specialization'=>$request->get('specialization'),
+            'education_document_name'=>$request->get('education_document_name'),
+            'education_document_file'=> $this->uploadFile($request, 'uploads/teachers/education_document'), //
+            'education_document_number'=>$request->get('education_document_number'),
+            'education_document_date'=>$request->get('education_document_date'),
+            'district_id'=>$request->get('district_id'),
+            'region_id'=>$request->get('region_id'),
+            'institution_id'=>$request->get('institution_id'),
+        ]);
+        $teachers->save();
         Flash::success('Teachers saved successfully.');
 
         return redirect(route('teachers.index'));
@@ -124,10 +135,6 @@ class TeachersController extends AppBaseController
     {
 
         $teachers = $this->teachersRepository->find($id);
-        /*$ed_degrees = EducationDegrees::all();
-        $institutions = Institutions::all();
-        $regions = Regions::all();
-        $districts = Districts::all();*/
         if (empty($teachers)) {
             Flash::error('Teachers not found');
 
@@ -181,11 +188,23 @@ class TeachersController extends AppBaseController
 
             return redirect(route('teachers.index'));
         }
-
+        $this->deleteFile('uploads/teachers/education_document/', $teachers->education_document_file);
         $this->teachersRepository->delete($id);
 
         Flash::success('Teachers deleted successfully.');
 
         return redirect(route('teachers.index'));
+    }
+
+    public function uploadFile($request, $destinationPath){
+
+        $file = $request->file('education_document_file');
+        $newNameImage = date('Ymdhis').'_'.$file->getClientOriginalName();
+        $file->move($destinationPath, $newNameImage);
+        return $newNameImage;
+    }
+
+    public function deleteFile($path, $file_name){
+        unlink($path.$file_name);
     }
 }

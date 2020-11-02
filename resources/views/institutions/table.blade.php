@@ -2,9 +2,9 @@
     <table class="table" id="institutions-table">
         <thead>
             <tr>
-                <th>Country Id</th>
-        <th>Region Id</th>
-        <th>District Id</th>
+                <th>Country</th>
+        <th>Region</th>
+        <th>District</th>
         <th>Name</th>
         <th>Address</th>
         <th>Code</th>
@@ -14,9 +14,9 @@
         <tbody>
         @foreach($institutions as $institution)
             <tr>
-                <td>{{ $institution->country_id }}</td>
-            <td>{{ $institution->region_id }}</td>
-            <td>{{ $institution->district_id }}</td>
+                <td>{{ $institution->c_name }}</td>
+            <td>{{ $institution->r_name }}</td>
+            <td>{{ $institution->d_name }}</td>
             <td>{{ $institution->name }}</td>
             <td>{{ $institution->address }}</td>
             <td>{{ $institution->code }}</td>
