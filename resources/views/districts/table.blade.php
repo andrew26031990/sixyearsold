@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>Region</th>
-        <th>Name</th>
+        <th>District</th>
                 <th colspan="3">Action</th>
             </tr>
         </thead>

@@ -147,9 +147,16 @@ class EducationDegreesController extends AppBaseController
             return redirect(route('educationDegrees.index'));
         }
 
-        $this->educationDegreesRepository->delete($id);
+        //$this->educationDegreesRepository->delete($id);
 
-        Flash::success('Education Degrees deleted successfully.');
+        try{
+            $this->educationDegreesRepository->delete($id);
+            Flash::success('Education Degrees deleted successfully.');
+        }catch (\Exception $exception){
+            Flash::error('Невозможно удалить ученую степень: '.$exception->getMessage());
+        }
+
+        //Flash::success('Education Degrees deleted successfully.');
 
         return redirect(route('educationDegrees.index'));
     }

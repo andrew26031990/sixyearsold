@@ -173,9 +173,16 @@ class GroupsController extends AppBaseController
             return redirect(route('groups.index'));
         }
 
-        $this->groupsRepository->delete($id);
+        //$this->groupsRepository->delete($id);
 
-        Flash::success('Groups deleted successfully.');
+        try{
+            $this->groupsRepository->delete($id);
+            Flash::success('Groups deleted successfully.');
+        }catch (\Exception $exception){
+            Flash::error('Невозможно удалить группу: '.$exception->getMessage());
+        }
+
+        //Flash::success('Groups deleted successfully.');
 
         return redirect(route('groups.index'));
     }

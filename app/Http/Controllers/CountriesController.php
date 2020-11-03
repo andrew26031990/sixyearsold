@@ -147,9 +147,16 @@ class CountriesController extends AppBaseController
             return redirect(route('countries.index'));
         }
 
-        $this->countriesRepository->delete($id);
+        //$this->countriesRepository->delete($id);
 
-        Flash::success('Countries deleted successfully.');
+        try{
+            $this->countriesRepository->delete($id);
+            Flash::success('Country deleted successfully.');
+        }catch (\Exception $exception){
+            Flash::error('Невозможно удалить страну: '.$exception->getMessage());
+        }
+
+        //Flash::success('Countries deleted successfully.');
 
         return redirect(route('countries.index'));
     }

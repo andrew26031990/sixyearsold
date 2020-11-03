@@ -24,7 +24,7 @@
                 <td>{{ $teacher->ed_name }}</td>
                 <td>{{ $teacher->specialization }}</td>
                 <td>{{ $teacher->education_document_name }}</td>
-                <td>{{ $teacher->education_document_file }}</td>
+                <td><a href="{{url('uploads/teachers/education_document').'/'.$teacher->education_document_file }}" download>{{ $teacher->education_document_file }}</a></td>
                 <td>{{ $teacher->education_document_number }}</td>
                 <td>{{ $teacher->education_document_date }}</td>
                 <td>{{ $teacher->d_name }}</td>

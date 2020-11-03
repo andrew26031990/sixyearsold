@@ -154,9 +154,12 @@ class DistrictsController extends AppBaseController
             return redirect(route('districts.index'));
         }
 
-        $this->districtsRepository->delete($id);
-
-        Flash::success('Districts deleted successfully.');
+        try{
+            $this->districtsRepository->delete($id);
+            Flash::success('District deleted successfully.');
+        }catch (\Exception $exception){
+            Flash::error('Невозможно удалить район: '.$exception->getMessage());
+        }
 
         return redirect(route('districts.index'));
     }

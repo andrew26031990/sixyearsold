@@ -70,7 +70,7 @@ class Pupils extends Model
         'birthday' => 'nullable',
         'birth_certificate_number' => 'nullable|string|max:50',
         'birth_certificate_date' => 'nullable',
-        'birth_certificate_file' => 'required|mimes:png,jpg,jpeg',
+        //'birth_certificate_file' => 'required',
         'has_certificate' => 'nullable|boolean'
     ];
 

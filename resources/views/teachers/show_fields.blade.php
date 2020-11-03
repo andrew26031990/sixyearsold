@@ -31,7 +31,7 @@
 <!-- Education Document File Field -->
 <div class="form-group">
     {!! Form::label('education_document_file', 'Education Document File:') !!}
-    <p>{{ $teachers[0]->education_document_file }}</p>
+    <p><img style="width: 300px; height: 300px;" src="{{url('uploads/teachers/education_document').'/'.$teachers[0]->education_document_file}}" /></p>
 </div>
 
 <!-- Education Document Number Field -->

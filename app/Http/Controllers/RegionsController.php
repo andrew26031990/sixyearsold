@@ -154,9 +154,12 @@ class RegionsController extends AppBaseController
             return redirect(route('regions.index'));
         }
 
-        $this->regionsRepository->delete($id);
-
-        Flash::success('Regions deleted successfully.');
+        try{
+            $this->regionsRepository->delete($id);
+            Flash::success('Region deleted successfully.');
+        }catch (\Exception $exception){
+            Flash::error('Невозможно удалить регион: '.$exception->getMessage());
+        }
 
         return redirect(route('regions.index'));
     }

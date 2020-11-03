@@ -154,9 +154,16 @@ class CommunitiesController extends AppBaseController
             return redirect(route('communities.index'));
         }
 
-        $this->communitiesRepository->delete($id);
+        //$this->communitiesRepository->delete($id);
 
-        Flash::success('Communities deleted successfully.');
+        try{
+            $this->communitiesRepository->delete($id);
+            Flash::success('Communities deleted successfully.');
+        }catch (\Exception $exception){
+            Flash::error('Невозможно удалить сообщество: '.$exception->getMessage());
+        }
+
+        //Flash::success('Communities deleted successfully.');
 
         return redirect(route('communities.index'));
     }

@@ -9,3 +9,7 @@ function changeLang(lang, user_id){
         }
     });
 }
+
+$(document).ready(function (){
+    $('.select2').select2();
+})

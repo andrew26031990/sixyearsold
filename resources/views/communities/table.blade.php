@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>District</th>
-        <th>Name</th>
+        <th>Community</th>
                 <th colspan="3">Action</th>
             </tr>
         </thead>

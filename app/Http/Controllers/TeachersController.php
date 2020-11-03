@@ -163,7 +163,39 @@ class TeachersController extends AppBaseController
             return redirect(route('teachers.index'));
         }
 
-        $teachers = $this->teachersRepository->update($request->all(), $id);
+        if($request->hasFile('education_document_file')){
+            $this->deleteFile('uploads/teachers/education_document/', $teachers->education_document_file);
+            $this->teachersRepository->update(
+                array(
+                    'full_name'=>$request->get('full_name'),
+                    'birthday'=>$request->get('birthday'),
+                    'education_degree_id'=>$request->get('education_degree_id'),
+                    'specialization'=>$request->get('specialization'),
+                    'education_document_name' => $request->get('education_document_name'),
+                    'education_document_file'=>$this->uploadFile($request, 'uploads/teachers/education_document'),
+                    'education_document_date'=>$request->get('education_document_date'),
+                    'district_id'=>$request->get('district_id'),
+                    'region_id'=>$request->get('region_id'),
+                    'institution_id'=>$request->get('institution_id'),
+                ),
+                $id);
+        }else{
+            $this->teachersRepository->update(
+                array(
+                    'full_name'=>$request->get('full_name'),
+                    'birthday'=>$request->get('birthday'),
+                    'education_degree_id'=>$request->get('education_degree_id'),
+                    'specialization'=>$request->get('specialization'),
+                    'education_document_name' => $request->get('education_document_name'),
+                    'education_document_date'=>$request->get('education_document_date'),
+                    'district_id'=>$request->get('district_id'),
+                    'region_id'=>$request->get('region_id'),
+                    'institution_id'=>$request->get('institution_id'),
+                ),
+                $id);
+        }
+
+        //$teachers = $this->teachersRepository->update($request->all(), $id);
 
         Flash::success('Teachers updated successfully.');
 
@@ -188,23 +220,28 @@ class TeachersController extends AppBaseController
 
             return redirect(route('teachers.index'));
         }
-        $this->deleteFile('uploads/teachers/education_document/', $teachers->education_document_file);
-        $this->teachersRepository->delete($id);
 
-        Flash::success('Teachers deleted successfully.');
+        try{
+            $this->deleteFile('uploads/teachers/education_document/', $teachers->education_document_file);
+            $this->teachersRepository->delete($id);
+            Flash::success('Teachers deleted successfully.');
+        }catch (\Exception $exception){
+            Flash::error('Невозможно удалить учителя'.$exception->getMessage());
+        }
 
         return redirect(route('teachers.index'));
     }
 
     public function uploadFile($request, $destinationPath){
-
         $file = $request->file('education_document_file');
-        $newNameImage = date('Ymdhis').'_'.$file->getClientOriginalName();
+        $newNameImage = date('Ymdhis').'_'.$request->file('education_document_file')->getClientOriginalName();
         $file->move($destinationPath, $newNameImage);
         return $newNameImage;
     }
 
     public function deleteFile($path, $file_name){
-        unlink($path.$file_name);
+        if(file_exists($path.$file_name)){
+            unlink($path.$file_name);
+        }
     }
 }

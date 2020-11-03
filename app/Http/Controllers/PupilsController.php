@@ -11,6 +11,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Response;
 
@@ -74,6 +75,7 @@ class PupilsController extends AppBaseController
         ]);
         $pupils->save();
         Flash::success('Pupils saved successfully.');
+        Log::info('Pupil added');
         return redirect(route('pupils.index'));
     }
     /**
@@ -133,12 +135,32 @@ class PupilsController extends AppBaseController
 
             return redirect(route('pupils.index'));
         }
-        dd($pupils);
-        if($request->file('birth_certificate_file')){
+
+        if($request->hasFile('birth_certificate_file')){
             $this->deleteFile('uploads/pupils/birth_certificate/', $pupils->birth_certificate_file);
-            $this->uploadFile($request, 'uploads/pupils/birth_certificate/');
+            $this->pupilsRepository->update(
+                array(
+                    'group_id' => $request->get('group_id'),
+                    'full_name'=>$request->get('full_name'),
+                    'birthday'=>$request->get('birthday'),
+                    'birth_certificate_number'=>$request->get('birth_certificate_number'),
+                    'birth_certificate_file'=>$this->uploadFile($request, 'uploads/pupils/birth_certificate'),
+                    'birth_certificate_date'=>$request->get('birth_certificate_date'),
+                    'has_certificate'=>$request->get('has_certificate'),
+                ),
+                $id);
+        }else{
+            $this->pupilsRepository->update(
+                array(
+                    'group_id' => $request->get('group_id'),
+                    'full_name'=>$request->get('full_name'),
+                    'birthday'=>$request->get('birthday'),
+                    'birth_certificate_number'=>$request->get('birth_certificate_number'),
+                    'birth_certificate_date'=>$request->get('birth_certificate_date'),
+                    'has_certificate'=>$request->get('has_certificate'),
+                ),
+                $id);
         }
-        $pupils = $this->pupilsRepository->update($request->all(), $id);
 
         Flash::success('Pupils updated successfully.');
 
@@ -163,10 +185,14 @@ class PupilsController extends AppBaseController
 
             return redirect(route('pupils.index'));
         }
-        $this->deleteFile('uploads/pupils/birth_certificate/', $pupils->birth_certificate_file);
-        $this->pupilsRepository->delete($id);
 
-        Flash::success('Pupils deleted successfully.');
+        try{
+            $this->deleteFile('uploads/pupils/birth_certificate/', $pupils->birth_certificate_file);
+            $this->pupilsRepository->delete($id);
+            Flash::success('Pupils deleted successfully.');
+        }catch (\Exception $exception){
+            Flash::error('Невозможно удалить воспитанника: '.$exception->getMessage());
+        }
 
         return redirect(route('pupils.index'));
     }
@@ -179,6 +205,8 @@ class PupilsController extends AppBaseController
     }
 
     public function deleteFile($path, $file_name){
-        unlink($path.$file_name);
+        if(file_exists($path.$file_name)){
+            unlink($path.$file_name);
+        }
     }
 }

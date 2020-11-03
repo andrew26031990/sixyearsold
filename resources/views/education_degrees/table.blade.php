@@ -2,7 +2,7 @@
     <table class="table" id="educationDegrees-table">
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Education degree</th>
                 <th colspan="3">Action</th>
             </tr>
         </thead>
