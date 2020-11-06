@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Teachers
+            {{__('message.teachers')}}
         </h1>
     </section>
     <div class="content">

@@ -65,12 +65,12 @@ class Pupils extends Model
      * @var array
      */
     public static $rules = [
-        'group_id' => 'nullable|integer',
+        'group_id' => 'nullable|integer|required_without:-1',
         'full_name' => 'nullable|string|max:100',
         'birthday' => 'nullable',
         'birth_certificate_number' => 'nullable|string|max:50',
         'birth_certificate_date' => 'nullable',
-        //'birth_certificate_file' => 'required',
+        'birth_certificate_file' => 'required',
         'has_certificate' => 'nullable|boolean'
     ];
 

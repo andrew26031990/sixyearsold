@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePupilsRequest;
 use App\Http\Requests\UpdatePupilsRequest;
 use App\Models\Pupils;
+use App\Repositories\CountriesRepository;
 use App\Repositories\GroupsRepository;
 use App\Repositories\PupilsRepository;
 use App\Http\Controllers\AppBaseController;
@@ -22,10 +23,13 @@ class PupilsController extends AppBaseController
 
     private $groupsRepository;
 
-    public function __construct(PupilsRepository $pupilsRepo, GroupsRepository $groupsRepo)
+    private $countriesRepository;
+
+    public function __construct(PupilsRepository $pupilsRepo, GroupsRepository $groupsRepo, CountriesRepository $countriesRepo)
     {
         $this->pupilsRepository = $pupilsRepo;
         $this->groupsRepository = $groupsRepo;
+        $this->countriesRepository = $countriesRepo;
     }
 
     /**
@@ -51,7 +55,7 @@ class PupilsController extends AppBaseController
      */
     public function create()
     {
-        return view('pupils.create')->with(['groups'=>$this->groupsRepository->all()]);
+        return view('pupils.create')->with(['groups'=>$this->groupsRepository->all(), 'countries'=>$this->countriesRepository->all()]);
     }
 
     /**
@@ -115,7 +119,7 @@ class PupilsController extends AppBaseController
             return redirect(route('pupils.index'));
         }
 
-        return view('pupils.edit')->with(['pupils' => $pupils, 'groups' => $this->groupsRepository->all()]);
+        return view('pupils.edit')->with(['pupils' => $pupils, 'groups' => $this->groupsRepository->all(), 'countries'=>$this->countriesRepository->all()]);
     }
 
     /**
@@ -198,7 +202,10 @@ class PupilsController extends AppBaseController
     }
 
     public function uploadFile($request, $destinationPath){
-        $file = $request->file('birth_certificate_file');
+        $Validation = $request->validate([
+            'birth_certificate_file' => 'required|file|mimes:jpg,jpeg,png|max:2048'
+        ]);
+        $file = $Validation['birth_certificate_file'];//$request->file('birth_certificate_file');
         $newNameImage = date('Ymdhis').'_'.$file->getClientOriginalName();
         $file->move($destinationPath, $newNameImage);
         return $newNameImage;

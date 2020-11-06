@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Countries
+            @lang('message.countries')
         </h1>
     </section>
     <div class="content">
@@ -12,7 +12,7 @@
             <div class="box-body">
                 <div class="row">
                     {!! Form::open(['route' => 'countries.store']) !!}
-
+                        {{ csrf_field() }}
                         @include('countries.fields')
 
                     {!! Form::close() !!}

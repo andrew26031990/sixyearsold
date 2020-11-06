@@ -2,14 +2,14 @@
     <table class="table" id="pupils-table">
         <thead>
             <tr>
-        <th>Group</th>
-        <th>Full Name</th>
-        <th>Birthday</th>
-        <th>Birth Certificate Number</th>
-        <th>Birth Certificate Date</th>
-        <th>Birth Certificate File</th>
-        <th>Has Certificate</th>
-                <th colspan="3">Action</th>
+        <th>{{__('message.group')}}</th>
+        <th>{{__('message.full_name')}}</th>
+        <th>{{__('message.birthday')}}</th>
+        <th>{{__('message.birth_certificate_number')}}</th>
+        <th>{{__('message.birth_certificate_date')}}</th>
+        <th>{{__('message.birth_certificate_file')}}</th>
+        <th>{{__('message.has_certificate')}}</th>
+                <th colspan="3">{{__('message.action')}}</th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +21,7 @@
                 <td>{{ $pupil->birth_certificate_number }}</td>
                 <td>{{ $pupil->birth_certificate_date }}</td>
                 <td><a href="{{url('uploads/pupils/birth_certificate').'/'.$pupil->birth_certificate_file }}" download>{{$pupil->birth_certificate_file}}</a></td>
-                <td>{{ $pupil->has_certificate }}</td>
+                <td>{{ $pupil->has_certificate == 1 ? 'yes' : 'no' }}</td>
                     <td>
                         {!! Form::open(['route' => ['pupils.destroy', $pupil->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

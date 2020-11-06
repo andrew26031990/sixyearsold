@@ -64,8 +64,8 @@ class TeachersController extends AppBaseController
      */
     public function create()
     {
-        return view('teachers.create')->with(['ed_degrees' => $this->ed_degrees->all(), 'institutions'=>$this->institutions->all(),
-            'regions'=>$this->regions->all(), 'districts'=>$this->districts->all()]);
+        return view('teachers.create')->with(['ed_degrees' => $this->ed_degrees->all(),
+            'regions'=>$this->regions->all()]);
     }
 
     /**
@@ -233,7 +233,10 @@ class TeachersController extends AppBaseController
     }
 
     public function uploadFile($request, $destinationPath){
-        $file = $request->file('education_document_file');
+        $Validation = $request->validate([
+            'education_document_file' => 'required|file|mimes:jpg,jpeg,png|max:2048'
+        ]);
+        $file = $Validation['education_document_file'];//$request->file('education_document_file');
         $newNameImage = date('Ymdhis').'_'.$request->file('education_document_file')->getClientOriginalName();
         $file->move($destinationPath, $newNameImage);
         return $newNameImage;

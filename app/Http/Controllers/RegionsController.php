@@ -163,4 +163,15 @@ class RegionsController extends AppBaseController
 
         return redirect(route('regions.index'));
     }
+
+    public function getRegions(){
+        $id = $_GET['id'];
+        $regions = DB::table('regions')->where('country_id', '=', $id)->get();
+        $html = '<option value="-1">Выберите регион</option>';
+        foreach ($regions as $region){
+            $html .=
+                '<option value="'.$region->id.'">'.$region->name.'</option>';
+        }
+        return $html;
+    }
 }

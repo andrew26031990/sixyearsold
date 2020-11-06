@@ -40,6 +40,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('districts', App\Http\Controllers\DistrictsController::class);
     Route::resource('educationDegrees', App\Http\Controllers\EducationDegreesController::class);
     Route::resource('users', App\Http\Controllers\UsersController::class);
+    Route::get('getRegions/{id}', [App\Http\Controllers\RegionsController::class,'getRegions']);
+    Route::get('getDistricts/{id}', [App\Http\Controllers\DistrictsController::class,'getDistricts']);
+    Route::get('getInstitutions/{id}', [App\Http\Controllers\InstitutionsController::class,'getInstitutions']);
+    Route::get('getGroups/{id}', [App\Http\Controllers\GroupsController::class,'getGroups']);
 });
 
 

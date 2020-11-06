@@ -174,4 +174,15 @@ class InstitutionsController extends AppBaseController
 
         return redirect(route('institutions.index'));
     }
+
+    public function getInstitutions(){
+        $id = $_GET['id'];
+        $institutions = DB::table('institutions')->where('district_id', '=', $id)->get();
+        $html = '<option value="-1">Выберите учреждение</option>';
+        foreach ($institutions as $institution){
+            $html .=
+                '<option value="'.$institution->id.'">'.$institution->name.'</option>';
+        }
+        return $html;
+    }
 }

@@ -2,13 +2,13 @@
     <table class="table" id="groups-table">
         <thead>
             <tr>
-                <th>Name</th>
-        <th>Country</th>
-        <th>Region</th>
-        <th>District</th>
-        <th>Institution</th>
-        <th>Address</th>
-                <th colspan="3">Action</th>
+                <th>{{__('message.group')}}</th>
+        <th>{{__('message.country')}}</th>
+        <th>{{__('message.region')}}</th>
+        <th>{{__('message.district')}}</th>
+        <th>{{__('message.institution')}}</th>
+        <th>{{__('message.address')}}</th>
+                <th colspan="3">{{__('message.action')}}</th>
             </tr>
         </thead>
         <tbody>

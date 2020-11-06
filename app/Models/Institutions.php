@@ -68,9 +68,9 @@ class Institutions extends Model
      * @var array
      */
     public static $rules = [
-        'country_id' => 'nullable|integer',
-        'region_id' => 'nullable|integer',
-        'district_id' => 'nullable|integer',
+        'country_id' => 'nullable|integer|required_without:-1',
+        'region_id' => 'nullable|integer|required_without:-1',
+        'district_id' => 'nullable|integer|required_without:-1',
         'name' => 'nullable|string|max:250',
         'address' => 'nullable|string',
         'code' => 'nullable|string|max:50'

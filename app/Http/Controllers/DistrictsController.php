@@ -163,4 +163,15 @@ class DistrictsController extends AppBaseController
 
         return redirect(route('districts.index'));
     }
+
+    public function getDistricts(){
+        $id = $_GET['id'];
+        $districts = DB::table('districts')->where('region_id', '=', $id)->get();
+        $html = '<option value="-1">Выберите район</option>';
+        foreach ($districts as $district){
+            $html .=
+                '<option value="'.$district->id.'">'.$district->name.'</option>';
+        }
+        return $html;
+    }
 }

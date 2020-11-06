@@ -186,4 +186,15 @@ class GroupsController extends AppBaseController
 
         return redirect(route('groups.index'));
     }
+
+    public function getGroups(){
+        $id = $_GET['id'];
+        $groups = DB::table('groups')->where('institution_id', '=', $id)->get();
+        $html = '<option value="-1">Выберите группу</option>';
+        foreach ($groups as $group){
+            $html .=
+                '<option value="'.$group->id.'">'.$group->name.'</option>';
+        }
+        return $html;
+    }
 }

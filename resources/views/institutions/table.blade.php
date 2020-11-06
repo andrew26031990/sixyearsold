@@ -2,13 +2,13 @@
     <table class="table" id="institutions-table">
         <thead>
             <tr>
-                <th>Country</th>
-        <th>Region</th>
-        <th>District</th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Code</th>
-                <th colspan="3">Action</th>
+                <th>{{__('message.country')}}</th>
+        <th>{{__('message.region')}}</th>
+        <th>{{__('message.district')}}</th>
+        <th>{{__('message.institution')}}</th>
+        <th>{{__('message.address')}}</th>
+        <th>{{__('message.tax_identification_number')}}</th>
+                <th colspan="3">{{__('message.action')}}</th>
             </tr>
         </thead>
         <tbody>
