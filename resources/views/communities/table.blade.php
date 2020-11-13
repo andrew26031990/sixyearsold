@@ -2,15 +2,15 @@
     <table class="table" id="communities-table">
         <thead>
             <tr>
-                <th>District Id</th>
-        <th>Name</th>
+                <th>District</th>
+        <th>Community</th>
                 <th colspan="3">Action</th>
             </tr>
         </thead>
         <tbody>
         @foreach($communities as $community)
             <tr>
-                <td>{{ $community->district_id }}</td>
+                <td>{{ $community->d_name }}</td>
             <td>{{ $community->name }}</td>
                 <td>
                     {!! Form::open(['route' => ['communities.destroy', $community->id], 'method' => 'delete']) !!}

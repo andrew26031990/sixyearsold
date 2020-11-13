@@ -25,7 +25,7 @@ class Communities extends Model
 
 
     protected $dates = ['deleted_at'];
-
+    public $timestamps = false;
 
 
     public $fillable = [
@@ -50,7 +50,7 @@ class Communities extends Model
      * @var array
      */
     public static $rules = [
-        'district_id' => 'required|integer',
+        'district_id' => 'required|integer|required_without:-1',
         'name' => 'nullable|string|max:255'
     ];
 

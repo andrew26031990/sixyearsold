@@ -30,7 +30,7 @@ class Pupils extends Model
 
 
     protected $dates = ['deleted_at'];
-
+    public $timestamps = false;
 
 
     public $fillable = [
@@ -40,7 +40,8 @@ class Pupils extends Model
         'birth_certificate_number',
         'birth_certificate_date',
         'birth_certificate_file',
-        'has_certificate'
+        'has_certificate',
+        'sex'
     ];
 
     /**
@@ -55,8 +56,9 @@ class Pupils extends Model
         'birthday' => 'date',
         'birth_certificate_number' => 'string',
         'birth_certificate_date' => 'date',
-        'birth_certificate_file' => 'string',
-        'has_certificate' => 'boolean'
+        //'birth_certificate_file' => 'string',
+        'has_certificate' => 'boolean',
+        'sex'=>'integer'
     ];
 
     /**
@@ -65,13 +67,14 @@ class Pupils extends Model
      * @var array
      */
     public static $rules = [
-        'group_id' => 'nullable|integer',
+        //'group_id' => 'required|integer|required_without:-1',
         'full_name' => 'nullable|string|max:100',
         'birthday' => 'nullable',
         'birth_certificate_number' => 'nullable|string|max:50',
         'birth_certificate_date' => 'nullable',
-        'birth_certificate_file' => 'nullable|string|max:255',
-        'has_certificate' => 'nullable|boolean'
+        //'birth_certificate_file' => 'required',
+        'has_certificate' => 'nullable|boolean',
+        'sex'=>'required'
     ];
 
     /**

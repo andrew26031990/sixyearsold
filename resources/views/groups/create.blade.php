@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Groups
+            {{__('message.groups')}}
         </h1>
     </section>
     <div class="content">
@@ -12,7 +12,7 @@
             <div class="box-body">
                 <div class="row">
                     {!! Form::open(['route' => 'groups.store']) !!}
-
+                        {{ csrf_field() }}
                         @include('groups.fields')
 
                     {!! Form::close() !!}

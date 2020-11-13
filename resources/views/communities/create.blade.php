@@ -12,7 +12,7 @@
             <div class="box-body">
                 <div class="row">
                     {!! Form::open(['route' => 'communities.store']) !!}
-
+                        {{ csrf_field() }}
                         @include('communities.fields')
 
                     {!! Form::close() !!}

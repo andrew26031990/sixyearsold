@@ -1,36 +1,36 @@
 <!-- Name Field -->
 <div class="form-group">
-    {!! Form::label('name', 'Name:') !!}
+    {!! Form::label('name', __('message.group')) !!}
     <p>{{ $groups->name }}</p>
 </div>
 
 <!-- Country Id Field -->
 <div class="form-group">
-    {!! Form::label('country_id', 'Country Id:') !!}
-    <p>{{ $groups->country_id }}</p>
+    {!! Form::label('country_id', __('message.country')) !!}
+    <p>{{ $groups->c_name }}</p>
 </div>
 
 <!-- Region Id Field -->
 <div class="form-group">
-    {!! Form::label('region_id', 'Region Id:') !!}
-    <p>{{ $groups->region_id }}</p>
+    {!! Form::label('region_id', __('message.region')) !!}
+    <p>{{ $groups->r_name }}</p>
 </div>
 
 <!-- District Id Field -->
 <div class="form-group">
-    {!! Form::label('district_id', 'District Id:') !!}
-    <p>{{ $groups->district_id }}</p>
+    {!! Form::label('district_id', __('message.district')) !!}
+    <p>{{ $groups->d_name }}</p>
 </div>
 
 <!-- Institution Id Field -->
 <div class="form-group">
-    {!! Form::label('institution_id', 'Institution Id:') !!}
-    <p>{{ $groups->institution_id }}</p>
+    {!! Form::label('institution_id', __('message.institution')) !!}
+    <p>{{ $groups->i_name }}</p>
 </div>
 
 <!-- Address Field -->
 <div class="form-group">
-    {!! Form::label('address', 'Address:') !!}
+    {!! Form::label('address', __('message.address')) !!}
     <p>{{ $groups->address }}</p>
 </div>
 

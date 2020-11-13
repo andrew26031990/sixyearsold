@@ -35,12 +35,12 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{ url('/home') }}"><b>InfyOm </b>Generator</a>
+        <a href="{{ url('/home') }}"><b>SIX YEARS</b></a>
     </div>
 
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Вход</p>
 
         <form method="post" action="{{ url('/login') }}">
             @csrf
@@ -82,7 +82,7 @@
         </form>
 
         <a href="{{ url('/password/reset') }}">I forgot my password</a><br>
-        <a href="{{ url('/register') }}" class="text-center">Register a new membership</a>
+        {{--<a href="{{ url('/register') }}" class="text-center">Register a new membership</a>--}}
 
     </div>
     <!-- /.login-box-body -->

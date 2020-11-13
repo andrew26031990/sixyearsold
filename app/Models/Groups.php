@@ -35,7 +35,7 @@ class Groups extends Model
 
 
     protected $dates = ['deleted_at'];
-
+    public $timestamps = false;
 
 
     public $fillable = [
@@ -69,10 +69,10 @@ class Groups extends Model
      */
     public static $rules = [
         'name' => 'required|string|max:100',
-        'country_id' => 'nullable|integer',
-        'region_id' => 'nullable|integer',
-        'district_id' => 'nullable|integer',
-        'institution_id' => 'nullable|integer',
+        'country_id' => 'nullable|integer|required_without:-1',
+        'region_id' => 'nullable|integer|required_without:-1',
+        'district_id' => 'nullable|integer|required_without:-1',
+        'institution_id' => 'nullable|integer|required_without:-1',
         'address' => 'nullable|string'
     ];
 

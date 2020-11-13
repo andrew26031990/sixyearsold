@@ -29,7 +29,7 @@ class Districts extends Model
 
 
     protected $dates = ['deleted_at'];
-
+    public $timestamps = false;
 
 
     public $fillable = [
@@ -54,7 +54,7 @@ class Districts extends Model
      * @var array
      */
     public static $rules = [
-        'region_id' => 'nullable|integer',
+        'region_id' => 'nullable|integer|required_without:-1',
         'name' => 'nullable|string|max:100'
     ];
 

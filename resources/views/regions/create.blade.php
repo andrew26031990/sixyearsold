@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Regions
+            {{__('message.regions')}}
         </h1>
     </section>
     <div class="content">
@@ -12,7 +12,7 @@
             <div class="box-body">
                 <div class="row">
                     {!! Form::open(['route' => 'regions.store']) !!}
-
+                        {{ csrf_field() }}
                         @include('regions.fields')
 
                     {!! Form::close() !!}

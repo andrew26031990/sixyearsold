@@ -2,15 +2,15 @@
     <table class="table" id="districts-table">
         <thead>
             <tr>
-                <th>Region Id</th>
-        <th>Name</th>
-                <th colspan="3">Action</th>
+                <th>{{__('message.region')}}</th>
+        <th>{{__('message.district')}}</th>
+                <th colspan="3">{{__('message.action')}}</th>
             </tr>
         </thead>
         <tbody>
         @foreach($districts as $district)
             <tr>
-                <td>{{ $district->region_id }}</td>
+                <td>{{ $district->r_name }}</td>
             <td>{{ $district->name }}</td>
                 <td>
                     {!! Form::open(['route' => ['districts.destroy', $district->id], 'method' => 'delete']) !!}

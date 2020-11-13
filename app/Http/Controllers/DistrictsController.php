@@ -6,8 +6,10 @@ use App\Http\Requests\CreateDistrictsRequest;
 use App\Http\Requests\UpdateDistrictsRequest;
 use App\Repositories\DistrictsRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\RegionsRepository;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 class DistrictsController extends AppBaseController
@@ -15,9 +17,12 @@ class DistrictsController extends AppBaseController
     /** @var  DistrictsRepository */
     private $districtsRepository;
 
-    public function __construct(DistrictsRepository $districtsRepo)
+    private $regionsRepository;
+
+    public function __construct(DistrictsRepository $districtsRepo, RegionsRepository $regionsRepo)
     {
         $this->districtsRepository = $districtsRepo;
+        $this->regionsRepository = $regionsRepo;
     }
 
     /**
@@ -29,8 +34,9 @@ class DistrictsController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $districts = $this->districtsRepository->paginate(10);
-
+        $districts = DB::table('districts')->
+        join('regions', 'districts.region_id', '=', 'regions.id')->
+        select('regions.name as r_name', 'districts.*')->paginate(10);
         return view('districts.index')
             ->with('districts', $districts);
     }
@@ -42,7 +48,7 @@ class DistrictsController extends AppBaseController
      */
     public function create()
     {
-        return view('districts.create');
+        return view('districts.create')->with('regions', $this->regionsRepository->all());
     }
 
     /**
@@ -72,8 +78,9 @@ class DistrictsController extends AppBaseController
      */
     public function show($id)
     {
-        $districts = $this->districtsRepository->find($id);
-
+        $districts = DB::table('districts')->
+        join('regions', 'districts.region_id', '=', 'regions.id')->where('districts.id', $id)->
+        select('regions.name as r_name', 'districts.*')->first();
         if (empty($districts)) {
             Flash::error('Districts not found');
 
@@ -100,7 +107,7 @@ class DistrictsController extends AppBaseController
             return redirect(route('districts.index'));
         }
 
-        return view('districts.edit')->with('districts', $districts);
+        return view('districts.edit')->with(['districts' => $districts, 'regions' => $this->regionsRepository->all()]);
     }
 
     /**
@@ -147,10 +154,24 @@ class DistrictsController extends AppBaseController
             return redirect(route('districts.index'));
         }
 
-        $this->districtsRepository->delete($id);
-
-        Flash::success('Districts deleted successfully.');
+        try{
+            $this->districtsRepository->delete($id);
+            Flash::success('District deleted successfully.');
+        }catch (\Exception $exception){
+            Flash::error('Невозможно удалить район: '.$exception->getMessage());
+        }
 
         return redirect(route('districts.index'));
+    }
+
+    public function getDistricts(){
+        $id = $_GET['id'];
+        $districts = DB::table('districts')->where('region_id', '=', $id)->get();
+        $html = '<option value="">Выберите район</option>';
+        foreach ($districts as $district){
+            $html .=
+                '<option value="'.$district->id.'">'.$district->name.'</option>';
+        }
+        return $html;
     }
 }

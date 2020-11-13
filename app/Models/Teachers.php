@@ -68,7 +68,7 @@ class Teachers extends Model
         'education_degree_id' => 'integer',
         'specialization' => 'string',
         'education_document_name' => 'string',
-        'education_document_file' => 'string',
+        //'education_document_file' => 'string',
         'education_document_number' => 'string',
         'education_document_date' => 'date',
         'district_id' => 'integer',
@@ -84,15 +84,15 @@ class Teachers extends Model
     public static $rules = [
         'full_name' => 'nullable|string|max:100',
         'birthday' => 'nullable',
-        'education_degree_id' => 'nullable|integer',
+        'education_degree_id' => 'required|integer|required_without:-1',
         'specialization' => 'nullable|string|max:200',
         'education_document_name' => 'nullable|string|max:200',
-        'education_document_file' => 'nullable|string|max:200',
+        //'education_document_file' => 'required',
         'education_document_number' => 'nullable|string|max:50',
         'education_document_date' => 'nullable',
-        'district_id' => 'required|integer',
-        'region_id' => 'nullable|integer',
-        'institution_id' => 'nullable|integer'
+        'district_id' => 'required|integer|required_without:-1',
+        'region_id' => 'required|integer|required_without:-1',
+        'institution_id' => 'required|integer|required_without:-1'
     ];
 
     /**

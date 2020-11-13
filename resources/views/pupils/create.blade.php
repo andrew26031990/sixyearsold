@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Pupils
+            {{__('message.pupils')}}
         </h1>
     </section>
     <div class="content">
@@ -11,11 +11,15 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'pupils.store']) !!}
+                    <form action="{{route('pupils.store')}}" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        @include('pupils.fields')
+                    </form>
+                    {{--{!! Form::open(['route' => 'pupils.store', 'method'=>'post', 'files'=>true]) !!}
 
                         @include('pupils.fields')
 
-                    {!! Form::close() !!}
+                    {!! Form::close() !!}--}}
                 </div>
             </div>
         </div>

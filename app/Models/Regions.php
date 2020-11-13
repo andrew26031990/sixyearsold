@@ -29,7 +29,7 @@ class Regions extends Model
 
 
     protected $dates = ['deleted_at'];
-
+    public $timestamps = false;
 
 
     public $fillable = [
@@ -54,7 +54,7 @@ class Regions extends Model
      * @var array
      */
     public static $rules = [
-        'country_id' => 'required|integer',
+        'country_id' => 'required|integer|required_without:-1',
         'name' => 'required|string|max:100'
     ];
 

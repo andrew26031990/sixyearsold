@@ -2,18 +2,18 @@
     <table class="table table-hover" id="teachers-table">
         <thead>
             <tr>
-                <th>Full Name</th>
-        <th>Birthday</th>
-        <th>Education Degree Id</th>
-        <th>Specialization</th>
-        <th>Education Document Name</th>
-        <th>Education Document File</th>
-        <th>Education Document Number</th>
-        <th>Education Document Date</th>
-        <th>District Id</th>
-        <th>Region Id</th>
-        <th>Institution Id</th>
-                <th colspan="3">Action</th>
+                <th>@lang('message.full_name')</th>
+                <th>@lang('message.birthday')</th>
+        <th>@lang('message.education_degree')</th>
+        <th>@lang('message.specialization')</th>
+        <th>@lang('message.education_document_name')</th>
+        <th>@lang('message.education_document_file')</th>
+        <th>@lang('message.education_document_number')</th>
+        <th>@lang('message.education_document_date')</th>
+        <th>@lang('message.district')</th>
+        <th>@lang('message.region')</th>
+        <th>@lang('message.institution')</th>
+                <th colspan="3">@lang('message.action')</th>
             </tr>
         </thead>
         <tbody>
@@ -21,15 +21,15 @@
             <tr>
                 <td>{{ $teacher->full_name }}</td>
                 <td>{{ $teacher->birthday }}</td>
-                <td>{{ $teacher->education_degree_id }}</td>
+                <td>{{ $teacher->ed_name }}</td>
                 <td>{{ $teacher->specialization }}</td>
                 <td>{{ $teacher->education_document_name }}</td>
-                <td>{{ $teacher->education_document_file }}</td>
+                <td><a href="{{url('uploads/teachers/education_document').'/'.$teacher->education_document_file }}" download>{{ $teacher->education_document_file }}</a></td>
                 <td>{{ $teacher->education_document_number }}</td>
                 <td>{{ $teacher->education_document_date }}</td>
-                <td>{{ $teacher->district_id }}</td>
-                <td>{{ $teacher->region_id }}</td>
-                <td>{{ $teacher->institution_id }}</td>
+                <td>{{ $teacher->d_name }}</td>
+                <td>{{ $teacher->r_name }}</td>
+                <td>{{ $teacher->i_name }}</td>
                     <td>
                         {!! Form::open(['route' => ['teachers.destroy', $teacher->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
@@ -47,7 +47,8 @@
         <ul class="pagination pagination-sm no-margin pull-right">
             <li><a href="{{$teachers->previousPageUrl()}}">«</a></li>
             <li><a href="{{$teachers->nextPageUrl()}}">»</a></li>
-            <li><a href="">Total: {{$teachers->total()}}</a></li>
+            <li><a href="/teachers?page={{$teachers->lastPage()}}">lastpage</a></li>
+            <li><a>Total: {{$teachers->total()}}</a></li>
         </ul>
     </div>
 </div>

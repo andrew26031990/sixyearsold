@@ -2,21 +2,21 @@
     <table class="table" id="institutions-table">
         <thead>
             <tr>
-                <th>Country Id</th>
-        <th>Region Id</th>
-        <th>District Id</th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Code</th>
-                <th colspan="3">Action</th>
+                <th>{{__('message.country')}}</th>
+        <th>{{__('message.region')}}</th>
+        <th>{{__('message.district')}}</th>
+        <th>{{__('message.institution')}}</th>
+        <th>{{__('message.address')}}</th>
+        <th>{{__('message.tax_identification_number')}}</th>
+                <th colspan="3">{{__('message.action')}}</th>
             </tr>
         </thead>
         <tbody>
         @foreach($institutions as $institution)
             <tr>
-                <td>{{ $institution->country_id }}</td>
-            <td>{{ $institution->region_id }}</td>
-            <td>{{ $institution->district_id }}</td>
+                <td>{{ $institution->c_name }}</td>
+            <td>{{ $institution->r_name }}</td>
+            <td>{{ $institution->d_name }}</td>
             <td>{{ $institution->name }}</td>
             <td>{{ $institution->address }}</td>
             <td>{{ $institution->code }}</td>

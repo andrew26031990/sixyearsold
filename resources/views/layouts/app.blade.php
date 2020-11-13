@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->setLocale(Auth::user()->lang)) }}">
+<html lang="{{ str_replace('_', '-', app()->setLocale(Auth::user()->lang)) }}">{{--{{ str_replace('_', '-', app()->setLocale(Auth::user()->lang)) }}--}}
 <head>
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
@@ -28,14 +28,15 @@
 </head>
 
 <body class="skin-blue sidebar-mini">
+
 @if (!Auth::guest())
     <div class="wrapper">
         <!-- Main Header -->
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="#" class="logo">
-                <b>{{ config('app.name') }}</b>
+            <a href="/" class="logo">
+                <b>{{__('message.Laravel')}}</b>
             </a>
 
             <!-- Header Navbar -->
@@ -73,9 +74,9 @@
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div class="pull-left">
+                                    {{--<div class="pull-left">
                                         <a href="{{ route('users.show', [Auth::user()->id]) }}" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
+                                    </div>--}}
                                     <div class="pull-right">
                                         <a href="{{ url('/logout') }}" class="btn btn-default btn-flat"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -92,17 +93,19 @@
                 </div>
             </nav>
         </header>
-
         <!-- Left side column. contains the logo and sidebar -->
         @include('layouts.sidebar')
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            <nav aria-label="breadcrumb">
+                {{ Breadcrumbs::render() }}
+            </nav>
             @yield('content')
         </div>
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright © 2016 <a href="#">Company</a>.</strong> All rights reserved.
+            <strong>Copyright © {{date('Y')}} <a href="#">Company</a>.</strong> All rights reserved.
         </footer>
 
     </div>

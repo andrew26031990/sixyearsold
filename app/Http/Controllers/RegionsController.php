@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateRegionsRequest;
 use App\Http\Requests\UpdateRegionsRequest;
+use App\Repositories\CountriesRepository;
 use App\Repositories\RegionsRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 class RegionsController extends AppBaseController
@@ -15,9 +17,12 @@ class RegionsController extends AppBaseController
     /** @var  RegionsRepository */
     private $regionsRepository;
 
-    public function __construct(RegionsRepository $regionsRepo)
+    private $countriesRepository;
+
+    public function __construct(RegionsRepository $regionsRepo, CountriesRepository $countriesRepo)
     {
         $this->regionsRepository = $regionsRepo;
+        $this->countriesRepository = $countriesRepo;
     }
 
     /**
@@ -29,8 +34,9 @@ class RegionsController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $regions = $this->regionsRepository->all();
-
+        $regions = DB::table('regions')->
+        join('countries', 'regions.country_id', '=', 'countries.id')->
+        select('countries.name as c_name', 'regions.*')->paginate(10);
         return view('regions.index')
             ->with('regions', $regions);
     }
@@ -42,7 +48,7 @@ class RegionsController extends AppBaseController
      */
     public function create()
     {
-        return view('regions.create');
+        return view('regions.create')->with('countries', $this->countriesRepository->all());
     }
 
     /**
@@ -72,8 +78,9 @@ class RegionsController extends AppBaseController
      */
     public function show($id)
     {
-        $regions = $this->regionsRepository->find($id);
-
+        $regions = DB::table('regions')->
+        join('countries', 'regions.country_id', '=', 'countries.id')->where('regions.id', $id)->
+        select('countries.name as c_name', 'regions.*')->first();
         if (empty($regions)) {
             Flash::error('Regions not found');
 
@@ -100,7 +107,7 @@ class RegionsController extends AppBaseController
             return redirect(route('regions.index'));
         }
 
-        return view('regions.edit')->with('regions', $regions);
+        return view('regions.edit')->with(['regions' => $regions, 'countries' => $this->countriesRepository->all()]);
     }
 
     /**
@@ -147,10 +154,24 @@ class RegionsController extends AppBaseController
             return redirect(route('regions.index'));
         }
 
-        $this->regionsRepository->delete($id);
-
-        Flash::success('Regions deleted successfully.');
+        try{
+            $this->regionsRepository->delete($id);
+            Flash::success('Region deleted successfully.');
+        }catch (\Exception $exception){
+            Flash::error('Невозможно удалить регион: '.$exception->getMessage());
+        }
 
         return redirect(route('regions.index'));
+    }
+
+    public function getRegions(){
+        $id = $_GET['id'];
+        $regions = DB::table('regions')->where('country_id', '=', $id)->get();
+        $html = '<option value="">Выберите регион</option>';
+        foreach ($regions as $region){
+            $html .=
+                '<option value="'.$region->id.'">'.$region->name.'</option>';
+        }
+        return $html;
     }
 }
