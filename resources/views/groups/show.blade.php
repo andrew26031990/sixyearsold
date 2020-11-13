@@ -11,7 +11,7 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('groups.show_fields')
-                    <a href="{{ route('groups.index') }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('groups.index') }}" class="btn btn-default">{{__('message.back')}}</a>
                 </div>
             </div>
         </div>

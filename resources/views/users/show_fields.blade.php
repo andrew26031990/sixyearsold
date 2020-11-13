@@ -1,41 +1,29 @@
 <!-- Name Field -->
 <div class="form-group">
-    {!! Form::label('name', 'Name:') !!}
+    {!! Form::label('name', __('message.user')) !!}
     <p>{{ $users->name }}</p>
 </div>
 
 <!-- Email Field -->
 <div class="form-group">
-    {!! Form::label('email', 'Email:') !!}
+    {!! Form::label('email', __('message.email')) !!}
     <p>{{ $users->email }}</p>
-</div>
-
-<!-- Email Verified At Field -->
-<div class="form-group">
-    {!! Form::label('email_verified_at', 'Email Verified At:') !!}
-    <p>{{ $users->email_verified_at }}</p>
 </div>
 
 <!-- Password Field -->
 <div class="form-group">
-    {!! Form::label('password', 'Password:') !!}
+    {!! Form::label('password', __('message.password')) !!}
     <p>{{ $users->password }}</p>
-</div>
-
-<!-- Remember Token Field -->
-<div class="form-group">
-    {!! Form::label('remember_token', 'Remember Token:') !!}
-    <p>{{ $users->remember_token }}</p>
 </div>
 
 <!-- Role Field -->
 <div class="form-group">
-    {!! Form::label('role', 'Role:') !!}
+    {!! Form::label('role', __('message.role')) !!}
     <p>{{ $users->role }}</p>
 </div>
 
 <!-- Lang Field -->
-<label>Prefer site language</label>
+<label>{{__('message.lang')}}</label>
 <div class="form-group" style="display: inline-block">
 
     <select class="form-control lang-user-change" onchange="changeLang(this.value, {{ $users->id }})">

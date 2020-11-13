@@ -5,7 +5,7 @@ function changeLang(lang, user_id){
         data: { user_id: user_id, lang: lang },
         success: function(response)
         {
-            window.location = window.location.href;
+            window.location = '/locale/' + response;
         }
     });
 }

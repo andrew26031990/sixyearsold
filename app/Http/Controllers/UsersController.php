@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUsersRequest;
 use App\Http\Requests\UpdateUsersRequest;
+use App\Models\User;
+use App\Models\Users;
 use App\Repositories\UsersRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Response;
 
 class UsersController extends AppBaseController
@@ -29,7 +33,7 @@ class UsersController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $users = $this->usersRepository->all();
+        $users = DB::table('users')->select('id', 'name', 'email', 'role', 'lang')->paginate(10);
 
         return view('users.index')
             ->with('users', $users);
@@ -54,11 +58,20 @@ class UsersController extends AppBaseController
      */
     public function store(CreateUsersRequest $request)
     {
-        $input = $request->all();
+        $request->validate([
+            'name' => 'required|min:3|max:50',
+            'email' => 'required|unique:users,email',
+            'password' => 'min:6|required',
+            'role'=>[ 'not_regex:/^(no)$/i' ],
+        ]);
+        Users::create([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
+            'role'=>$request->get('role'),
+        ]);
 
-        $users = $this->usersRepository->create($input);
-
-        Flash::success('Users saved successfully.');
+        Flash::success('User saved successfully.');
 
         return redirect(route('users.index'));
     }
@@ -113,7 +126,33 @@ class UsersController extends AppBaseController
      */
     public function update($id, UpdateUsersRequest $request)
     {
-        $users = $this->usersRepository->find($id);
+        $request->validate([
+            'name' => 'required|min:3|max:50',
+            'email' => 'required|email',
+            'role'=>[ 'not_regex:/^(no)$/i' ],
+        ]);
+
+        $password = $request->get('password');
+
+        if($password != null){
+            $this->usersRepository->update(
+                array(
+                    'name'=>$request->get('name'),
+                    'email'=>$request->get('email'),
+                    'password'=>Hash::make($request->get('password')),
+                    'role'=>$request->get('role'),
+                ),
+                $id);
+        }else{
+            $this->usersRepository->update(
+                array(
+                    'name'=>$request->get('name'),
+                    'email'=>$request->get('email'),
+                    'role'=>$request->get('role'),
+                ),
+                $id);
+        }
+        /*$users = $this->usersRepository->find($id);
 
         if (empty($users)) {
             Flash::error('Users not found');
@@ -121,9 +160,9 @@ class UsersController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        $users = $this->usersRepository->update($request->all(), $id);
+        $users = $this->usersRepository->update($request->all(), $id);*/
 
-        Flash::success('Users updated successfully.');
+        Flash::success('User updated successfully.');
 
         return redirect(route('users.index'));
     }
@@ -158,6 +197,6 @@ class UsersController extends AppBaseController
         $user_id = $_GET['user_id'];
         $lang = $_GET['lang'];
         $this->usersRepository->update(array('lang' => $lang), $user_id);
-        return "Языковые настройки сайта изменены";
+        return $lang;
     }
 }

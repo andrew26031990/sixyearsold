@@ -1,19 +1,13 @@
 <!-- Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('name', 'Name:') !!}
+    {!! Form::label('name', __('message.user')) !!}
     {!! Form::text('name', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
 </div>
 
 <!-- Email Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('email', 'Email:') !!}
-    {!! Form::email('email', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-</div>
-
-<!-- Email Verified At Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('email_verified_at', 'Email Verified At:') !!}
-    {!! Form::text('email_verified_at', null, ['class' => 'form-control','id'=>'email_verified_at']) !!}
+    {!! Form::label('email', __('message.email')) !!}
+    {!! Form::email('email', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'autocomplete'=>false]) !!}
 </div>
 
 @push('scripts')
@@ -28,30 +22,30 @@
 
 <!-- Password Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('password', 'Password:') !!}
-    {!! Form::password('password', ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-</div>
-
-<!-- Remember Token Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('remember_token', 'Remember Token:') !!}
-    {!! Form::text('remember_token', null, ['class' => 'form-control','maxlength' => 100,'maxlength' => 100]) !!}
+    {!! Form::label('password', __('message.password')) !!}
+    {!! Form::password('password', ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'autocomplete'=>false]) !!}
 </div>
 
 <!-- Role Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('role', 'Role:') !!}
-    {!! Form::text('role', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    {!! Form::label('role', __('message.role')) !!}
+    <select class="form-control" name="role" required>
+        <option value="admin" {{(isset($users) && $users->role == 'admin') ? 'selected' : ''}}>Админ</option>
+        <option value="user" {{(isset($users) && $users->role == 'user') ? 'selected' : ''}}>Пользователь</option>
+    </select>
 </div>
-
-<!-- Role Field -->
+{{--<!-- Language Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('lang', 'Language') !!}
-    {!! Form::text('lang', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
-</div>
+    <select class="form-control" name="lang" required>
+        <option value="no">Выберите язык интерфейса для пользователя</option>
+        <option value="ru">Русский</option>
+        <option value="uz">Узбекский</option>
+    </select>
+</div>--}}
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{{ route('users.index') }}" class="btn btn-default">Cancel</a>
+    {!! Form::submit(__('message.save'), ['class' => 'btn btn-primary']) !!}
+    <a href="{{ route('users.index') }}" class="btn btn-default">{{__('message.cancel')}}</a>
 </div>
