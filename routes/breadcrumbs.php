@@ -7,7 +7,7 @@ Breadcrumbs::for('home', function ($trail) {
 
 // Teachers
 Breadcrumbs::for('teachers.index', function ($trail) {
-    $trail->push('Teachers', route('teachers.index'));
+    $trail->push(__('message.teachers'), route('teachers.index'));
 });
 
 Breadcrumbs::for('teachers.edit', function ($trail, $teachers) {
@@ -27,7 +27,7 @@ Breadcrumbs::for('teachers.show', function ($trail, $teachers) {
 
 // Pupils
 Breadcrumbs::for('pupils.index', function ($trail) {
-    $trail->push('Pupils', route('teachers.index'));
+    $trail->push(__('message.pupils'), route('teachers.index'));
 });
 
 Breadcrumbs::for('pupils.edit', function ($trail, $pupils) {
@@ -47,7 +47,7 @@ Breadcrumbs::for('pupils.show', function ($trail, $pupils) {
 
 // Institutions
 Breadcrumbs::for('institutions.index', function ($trail) {
-    $trail->push('Institutions', route('institutions.index'));
+    $trail->push(__('message.institutions'), route('institutions.index'));
 });
 
 Breadcrumbs::for('institutions.edit', function ($trail, $institutions) {
@@ -67,7 +67,7 @@ Breadcrumbs::for('institutions.show', function ($trail, $institutions) {
 
 // Groups
 Breadcrumbs::for('groups.index', function ($trail) {
-    $trail->push('Groups', route('groups.index'));
+    $trail->push(__('message.groups'), route('groups.index'));
 });
 
 Breadcrumbs::for('groups.edit', function ($trail, $groups) {
@@ -87,7 +87,7 @@ Breadcrumbs::for('groups.show', function ($trail, $groups) {
 
 // Communities
 Breadcrumbs::for('communities.index', function ($trail) {
-    $trail->push('Communities', route('communities.index'));
+    $trail->push(__('message.communities'), route('communities.index'));
 });
 
 Breadcrumbs::for('communities.edit', function ($trail, $communities) {
@@ -107,7 +107,7 @@ Breadcrumbs::for('communities.show', function ($trail, $communities) {
 
 // Countries
 Breadcrumbs::for('countries.index', function ($trail) {
-    $trail->push('Countries', route('countries.index'));
+    $trail->push(__('message.countries'), route('countries.index'));
 });
 
 Breadcrumbs::for('countries.edit', function ($trail, $countries) {
@@ -127,7 +127,7 @@ Breadcrumbs::for('countries.show', function ($trail, $countries) {
 
 // Regions
 Breadcrumbs::for('regions.index', function ($trail) {
-    $trail->push('Regions', route('regions.index'));
+    $trail->push(__('message.regions'), route('regions.index'));
 });
 
 Breadcrumbs::for('regions.edit', function ($trail, $regions) {
@@ -147,7 +147,7 @@ Breadcrumbs::for('regions.show', function ($trail, $regions) {
 
 // Districts
 Breadcrumbs::for('districts.index', function ($trail) {
-    $trail->push('Districts', route('districts.index'));
+    $trail->push(__('message.districts'), route('districts.index'));
 });
 
 Breadcrumbs::for('districts.edit', function ($trail, $districts) {
@@ -167,7 +167,7 @@ Breadcrumbs::for('districts.show', function ($trail, $districts) {
 
 // Education Degrees
 Breadcrumbs::for('educationDegrees.index', function ($trail) {
-    $trail->push('Education degrees', route('educationDegrees.index'));
+    $trail->push(__('message.education_degrees'), route('educationDegrees.index'));
 });
 
 Breadcrumbs::for('educationDegrees.edit', function ($trail, $education_degrees) {
@@ -187,7 +187,7 @@ Breadcrumbs::for('educationDegrees.show', function ($trail, $education_degrees) 
 
 // Users
 Breadcrumbs::for('users.index', function ($trail) {
-    $trail->push('Users', route('users.index'));
+    $trail->push(__('message.users'), route('users.index'));
 });
 
 Breadcrumbs::for('users.edit', function ($trail, $users) {

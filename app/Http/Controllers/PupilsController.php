@@ -9,11 +9,13 @@ use App\Repositories\CountriesRepository;
 use App\Repositories\GroupsRepository;
 use App\Repositories\PupilsRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\RegionsRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class PupilsController extends AppBaseController
@@ -25,11 +27,14 @@ class PupilsController extends AppBaseController
 
     private $countriesRepository;
 
-    public function __construct(PupilsRepository $pupilsRepo, GroupsRepository $groupsRepo, CountriesRepository $countriesRepo)
+    private $regionsRepository;
+
+    public function __construct(PupilsRepository $pupilsRepo, GroupsRepository $groupsRepo, CountriesRepository $countriesRepo, RegionsRepository $regionsRepo)
     {
         $this->pupilsRepository = $pupilsRepo;
         $this->groupsRepository = $groupsRepo;
         $this->countriesRepository = $countriesRepo;
+        $this->regionsRepository = $regionsRepo;
     }
 
     /**
@@ -55,7 +60,7 @@ class PupilsController extends AppBaseController
      */
     public function create()
     {
-        return view('pupils.create')->with(['groups'=>$this->groupsRepository->all(), 'countries'=>$this->countriesRepository->all()]);
+        return view('pupils.create')->with(['regions'=>$this->regionsRepository->all()]);
     }
 
     /**
@@ -76,10 +81,11 @@ class PupilsController extends AppBaseController
             'birth_certificate_date'=>$request->get('birth_certificate_date'),
             'birth_certificate_file'=> $this->uploadFile($request, 'uploads/pupils/birth_certificate'), //
             'has_certificate'=>$request->get('has_certificate'),
+            'sex'=>$request->get('sex'),
         ]);
         $pupils->save();
         Flash::success('Pupils saved successfully.');
-        Log::info('Pupil added');
+        Log::info(Auth::user()->name.' added '.$request->get('full_name'));
         return redirect(route('pupils.index'));
     }
     /**
@@ -112,14 +118,20 @@ class PupilsController extends AppBaseController
     public function edit($id)
     {
         $pupils = $this->pupilsRepository->find($id);
-
+        $groups = DB::table('groups')->
+        join('countries', 'countries.id', '=', 'groups.country_id')->
+        join('regions', 'regions.id', '=', 'groups.region_id')->
+        join('districts', 'districts.id', '=', 'groups.district_id')->
+        join('institutions', 'institutions.id', '=', 'groups.institution_id')->
+        where('groups.id', $pupils->group_id)->
+        get(['countries.name as c_name', 'countries.id as c_id', 'regions.name as r_name', 'regions.id as r_id', 'districts.name as d_name', 'districts.id as d_id', 'institutions.name as i_name', 'institutions.id as i_id', 'groups.name as g_name', 'groups.id as g_id']);
         if (empty($pupils)) {
             Flash::error('Pupils not found');
 
             return redirect(route('pupils.index'));
         }
 
-        return view('pupils.edit')->with(['pupils' => $pupils, 'groups' => $this->groupsRepository->all(), 'countries'=>$this->countriesRepository->all()]);
+        return view('pupils.edit')->with(['pupils' => $pupils, 'groups' => $groups, 'countries'=>$this->countriesRepository->all()]);
     }
 
     /**
@@ -132,6 +144,10 @@ class PupilsController extends AppBaseController
      */
     public function update($id, UpdatePupilsRequest $request)
     {
+        //dd($request);
+        $request->validate([
+            'group_id' => 'integer|required_without:-1',
+        ]);
         $pupils = $this->pupilsRepository->find($id);
 
         if (empty($pupils)) {
@@ -151,6 +167,7 @@ class PupilsController extends AppBaseController
                     'birth_certificate_file'=>$this->uploadFile($request, 'uploads/pupils/birth_certificate'),
                     'birth_certificate_date'=>$request->get('birth_certificate_date'),
                     'has_certificate'=>$request->get('has_certificate'),
+                    'sex'=>$request->get('sex'),
                 ),
                 $id);
         }else{
@@ -162,6 +179,7 @@ class PupilsController extends AppBaseController
                     'birth_certificate_number'=>$request->get('birth_certificate_number'),
                     'birth_certificate_date'=>$request->get('birth_certificate_date'),
                     'has_certificate'=>$request->get('has_certificate'),
+                    'sex'=>$request->get('sex'),
                 ),
                 $id);
         }

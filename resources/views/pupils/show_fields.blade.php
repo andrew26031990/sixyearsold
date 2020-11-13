@@ -23,10 +23,13 @@
 </div>
 
 <!-- Birth Certificate File Field -->
-<div class="form-group">
-    {!! Form::label('birth_certificate_file', __('message.birth_certificate_file')) !!}
-    <p><img style="width: 300px; height: 300px;" src="{{url('uploads/pupils/birth_certificate').'/'.$pupils->birth_certificate_file}}" /></p>
-</div>
+@if(file_exists(url('uploads/pupils/birth_certificate').'/'.$pupils->birth_certificate_file))
+    <div class="form-group">
+        {!! Form::label('birth_certificate_file', __('message.birth_certificate_file')) !!}
+        <p><img style="width: 300px; height: 300px;" src="{{url('uploads/pupils/birth_certificate').'/'.$pupils->birth_certificate_file}}" /></p>
+    </div>
+@endif
+
 
 <!-- Has Certificate Field -->
 <div class="form-group">

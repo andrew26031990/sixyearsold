@@ -13,7 +13,7 @@
 @push('scripts')
     <script type="text/javascript">
         $('#birthday').datetimepicker({
-            format: 'YYYY-MM-DD',
+            format: 'DD-MM-YYYY',//YYYY-MM-DD
             minDate: new Date(new Date().getFullYear() - 18, 1-1, 1),
             useCurrent: true,
             sideBySide: true
@@ -25,9 +25,9 @@
 <div class="form-group col-sm-6">
     {!! Form::label('education_degree_id', __('message.education_degrees')) !!}
     <select class="form-control" name="education_degree_id" required>
-        <option value="-1">Выберите образование</option>
+        <option value="">Выберите образование</option>
         @foreach($ed_degrees as $ed_degree)
-            <option value="{{$ed_degree->id}}">{{$ed_degree->name}}</option>
+            <option value="{{$ed_degree->id}}" {{ isset($teachers->education_degree_id) && $ed_degree->id == $teachers->education_degree_id ? 'selected' : ''}}>{{$ed_degree->name}}</option>
         @endforeach
     </select>
 </div>
@@ -46,9 +46,9 @@
 
 <!-- Education Document File Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('education_document_file', __('message.education_document_file')) !!}
+    {!! Form::label('education_document_file', __('message.education_document_file').' (.jpeg, .jpg, .png)( < 2 Mb)') !!}
     {{--{!! Form::text('education_document_file', null, ['class' => 'form-control','maxlength' => 200,'maxlength' => 200]) !!}--}}
-    {!! Form::file('education_document_file', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => 'required']) !!}
+    {!! Form::file('education_document_file', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255, 'required' => 'required', 'accept' => '.jpeg,.jpg,.png']) !!}
 </div>
 
 <!-- Education Document Number Field -->
@@ -66,11 +66,12 @@
 <!-- District Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('district_id', __('message.district')) !!}
-    <select class="form-control" name="district_id" required disabled>
-        <option value="-1">Выберите район</option>
-        {{--@foreach($districts as $district)
-            <option value="{{$district->id}}">{{$district->name}}</option>
-        @endforeach--}}
+    <select class="form-control" name="district_id" required readonly>
+        @if(isset($districts))
+            <option value="{{$districts[0]->id}}" selected>{{$districts[0]->name}}</option>
+        @else
+            <option value="">Выберите район</option>
+        @endif
     </select>
 </div>
 
@@ -78,21 +79,30 @@
 <div class="form-group col-sm-6">
     {!! Form::label('region_id', __('message.region')) !!}
     <select class="form-control" name="region_id" required>
-        <option value="-1">Выберите регион</option>
-        @foreach($regions as $region)
-            <option value="{{$region->id}}">{{$region->name}}</option>
-        @endforeach
+        @if(isset($teachers))
+            <option value="">Выберите регион</option>
+            @foreach($regions as $region)
+                <option value="{{$region->id}}" {{($teachers->region_id == $region->id) ? 'selected' : ''}}>{{$region->name}}</option>
+            @endforeach
+        @else
+            <option value="">Выберите регион</option>
+            @foreach($regions as $region)
+                <option value="{{$region->id}}">{{$region->name}}</option>
+            @endforeach
+        @endif
     </select>
 </div>
 
 <!-- Institution Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('institution_id', __('message.institution')) !!}
-    <select class="form-control" name="institution_id" required disabled>
-        <option value="-1">Выберите учреждение</option>
-        {{--@foreach($institutions as $institution)
-            <option value="{{$institution->id}}">{{$institution->name}}</option>
-        @endforeach--}}
+    <select class="form-control" name="institution_id" required readonly>
+
+        @if(isset($institutions))
+            <option value="{{$institutions[0]->id}}" selected>{{$institutions[0]->name}}</option>
+        @else
+            <option value="" selected>Выберите учреждение</option>
+        @endif
     </select>
 </div>
 
@@ -106,13 +116,13 @@
 @push('scripts')
     <script type="text/javascript">
         $('#education_document_date').datetimepicker({
-            format: 'YYYY-MM-DD',
+            format: 'DD-MM-YYYY',
             useCurrent: true,
             sideBySide: true
         })
         $(function(){
             $('select[name="region_id"]').on('change', function() {
-                $('select[name="institution_id"]').attr('disabled', 'disabled');
+                $('select[name="institution_id"]').attr('readonly', 'readonly');
             });
             $('select[name="region_id"]').on('change', function() {
                 let id = $(this).val();
@@ -126,7 +136,7 @@
                     data: { id: id },
                     success: function(response)
                     {
-                        $('select[name="district_id"]').removeAttr('disabled');
+                        $('select[name="district_id"]').removeAttr('readonly');
                         $('select[name="district_id"]').append(response);
                     }
                 });
@@ -143,7 +153,7 @@
                     data: { id: id },
                     success: function(response)
                     {
-                        $('select[name="institution_id"]').removeAttr('disabled');
+                        $('select[name="institution_id"]').removeAttr('readonly');
                         $('select[name="institution_id"]').append(response);
                     }
                 });

@@ -190,7 +190,7 @@ class GroupsController extends AppBaseController
     public function getGroups(){
         $id = $_GET['id'];
         $groups = DB::table('groups')->where('institution_id', '=', $id)->get();
-        $html = '<option value="-1">Выберите группу</option>';
+        $html = '<option value="">Выберите группу</option>';
         foreach ($groups as $group){
             $html .=
                 '<option value="'.$group->id.'">'.$group->name.'</option>';

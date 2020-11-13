@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\DB;
 use Response;
+use App\Providers\Services\GetDataFromAjax;
 
 class TeachersController extends AppBaseController
 {
@@ -133,16 +134,17 @@ class TeachersController extends AppBaseController
      */
     public function edit($id, Request $request)
     {
-
         $teachers = $this->teachersRepository->find($id);
+        $institutions = DB::table('institutions')->where('institutions.id', $teachers->institution_id)->get();
+        $districts = DB::table('districts')->where('districts.id', $teachers->district_id)->get();
         if (empty($teachers)) {
             Flash::error('Teachers not found');
 
             return redirect(route('teachers.index'));
         }
 
-        return view('teachers.edit')->with(['teachers' => $teachers, 'ed_degrees' => $this->ed_degrees->all(), 'institutions'=>$this->institutions->all(),
-            'regions'=>$this->regions->all(), 'districts'=>$this->districts->all(), 'request'=>$request]);
+        return view('teachers.edit')->with(['teachers' => $teachers, 'ed_degrees' => $this->ed_degrees->all(), 'institutions'=>$institutions,
+            'regions'=>$this->regions->all(), 'districts'=>$districts, 'request'=>$request]);
     }
 
     /**

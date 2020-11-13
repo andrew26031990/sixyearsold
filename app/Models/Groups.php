@@ -55,11 +55,15 @@ class Groups extends Model
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
-        'country_id' => 'integer',
+        //'country_id' => 'integer',
         'region_id' => 'integer',
         'district_id' => 'integer',
         'institution_id' => 'integer',
         'address' => 'string'
+    ];
+
+    protected $attributes = [
+        'country_id' => 1,
     ];
 
     /**
@@ -69,7 +73,7 @@ class Groups extends Model
      */
     public static $rules = [
         'name' => 'required|string|max:100',
-        'country_id' => 'nullable|integer|required_without:-1',
+        //'country_id' => 'nullable|integer|required_without:-1',
         'region_id' => 'nullable|integer|required_without:-1',
         'district_id' => 'nullable|integer|required_without:-1',
         'institution_id' => 'nullable|integer|required_without:-1',

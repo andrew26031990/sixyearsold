@@ -54,7 +54,7 @@ class Institutions extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'country_id' => 'integer',
+        //'country_id' => 'integer',
         'region_id' => 'integer',
         'district_id' => 'integer',
         'name' => 'string',
@@ -68,12 +68,16 @@ class Institutions extends Model
      * @var array
      */
     public static $rules = [
-        'country_id' => 'nullable|integer|required_without:-1',
+        //'country_id' => 'nullable|integer|required_without:-1',
         'region_id' => 'nullable|integer|required_without:-1',
         'district_id' => 'nullable|integer|required_without:-1',
         'name' => 'nullable|string|max:250',
         'address' => 'nullable|string',
         'code' => 'nullable|string|max:50'
+    ];
+
+    protected $attributes = [
+        'country_id' => 1,
     ];
 
     /**

@@ -2,9 +2,9 @@
     <table class="table" id="regions-table">
         <thead>
             <tr>
-                <th>Country</th>
-        <th>Region</th>
-                <th colspan="3">Action</th>
+                <th>{{__('message.country')}}</th>
+        <th>{{__('message.region')}}</th>
+                <th colspan="3">{{__('message.action')}}</th>
             </tr>
         </thead>
         <tbody>

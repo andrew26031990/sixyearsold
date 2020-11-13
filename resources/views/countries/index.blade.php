@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">@lang('message.countries')</h1>
+        <h1 class="pull-left">{{__('message.countries')}}</h1>
         <h1 class="pull-right">
            <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('countries.create') }}">@lang('message.create_country')</a>
         </h1>

@@ -27,12 +27,15 @@
     {!! Form::label('education_document_name', __('message.education_document_name')) !!}
     <p>{{ $teachers[0]->education_document_name }}</p>
 </div>
-
+{{(File::exists(url('uploads/teachers/education_document').'/'.$teachers[0]->education_document_file)) ? 'exist' : url('uploads/teachers/education_document').'/'.$teachers[0]->education_document_file}}
 <!-- Education Document File Field -->
-<div class="form-group">
-    {!! Form::label('education_document_file', __('message.education_document_file')) !!}
-    <p><img style="width: 300px; height: 300px;" src="{{url('uploads/teachers/education_document').'/'.$teachers[0]->education_document_file}}" /></p>
-</div>
+@if(file_exists(url('uploads/teachers/education_document').'/'.$teachers[0]->education_document_file))
+    <div class="form-group">
+        {!! Form::label('education_document_file', __('message.education_document_file')) !!}
+        <p><img style="width: 300px; height: 300px;" src="{{url('uploads/teachers/education_document').'/'.$teachers[0]->education_document_file}}" /></p>
+    </div>
+@endif
+
 
 <!-- Education Document Number Field -->
 <div class="form-group">

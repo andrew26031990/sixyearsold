@@ -84,15 +84,15 @@ class Teachers extends Model
     public static $rules = [
         'full_name' => 'nullable|string|max:100',
         'birthday' => 'nullable',
-        'education_degree_id' => 'nullable|integer|required_without:-1',
+        'education_degree_id' => 'required|integer|required_without:-1',
         'specialization' => 'nullable|string|max:200',
         'education_document_name' => 'nullable|string|max:200',
-        'education_document_file' => 'required',
+        //'education_document_file' => 'required',
         'education_document_number' => 'nullable|string|max:50',
         'education_document_date' => 'nullable',
         'district_id' => 'required|integer|required_without:-1',
-        'region_id' => 'nullable|integer|required_without:-1',
-        'institution_id' => 'nullable|integer|required_without:-1'
+        'region_id' => 'required|integer|required_without:-1',
+        'institution_id' => 'required|integer|required_without:-1'
     ];
 
     /**

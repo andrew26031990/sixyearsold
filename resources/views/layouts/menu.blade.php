@@ -17,11 +17,10 @@
 {{--<li class="{{ Request::is('communities*') ? 'active' : '' }}">
     <a href="{{ route('communities.index') }}"><i class="fa fa-edit"></i><span>@lang('message.groups')</span></a>
 </li>--}}
-
 @if(Auth::user()->role == 'admin')
 <li class="treeview menu-open" style="height: auto;">
     <a href="#">
-        <i class="fa fa-wrench"></i><span>Settings</span>
+        <i class="fa fa-wrench"></i><span>{{__('message.settings')}}</span>
         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

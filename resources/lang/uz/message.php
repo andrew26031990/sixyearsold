@@ -47,5 +47,14 @@ return [
     'create_district' => 'Туман яратиш',
     'education_degrees' => 'Таълим даражаси',
     'education_degree' => 'Таълим',
-    'create_education_degree' => 'Таълим даражасини яратиш'
+    'create_education_degree' => 'Таълим даражасини яратиш',
+    'back'=>'Орқага',
+    'sign_out'=>'Чикиш',
+    'user' => 'Исм',
+    'email' => 'Email',
+    'role' => 'Рол',
+    'lang' => 'Тил',
+    'add_user' => 'Қўшиш',
+    'password' => 'Пароль'
+
 ];

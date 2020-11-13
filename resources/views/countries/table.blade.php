@@ -2,8 +2,8 @@
     <table class="table" id="countries-table">
         <thead>
             <tr>
-                <th>Country</th>
-                <th colspan="3">Action</th>
+                <th>{{__('message.country')}}</th>
+                <th colspan="3">{{__('message.action')}}</th>
             </tr>
         </thead>
         <tbody>

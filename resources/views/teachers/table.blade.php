@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>@lang('message.full_name')</th>
-        <th>@lang('message.birthday')</th>
+                <th>@lang('message.birthday')</th>
         <th>@lang('message.education_degree')</th>
         <th>@lang('message.specialization')</th>
         <th>@lang('message.education_document_name')</th>

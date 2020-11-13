@@ -6,7 +6,7 @@ return [
     'country' => 'Страна',
     'tax_identification_number' => 'ИНН',
     'full_name' => 'ФИО',
-    'birthday' => 'Дата Рождения',
+    'birthday' => 'Дата рождения',
     'education_degree_id' => 'Образования',
     'specialization' => 'Специализация',
     'education_document_name' => 'Вид документа',
@@ -20,7 +20,7 @@ return [
     'pupils' => 'Воспитанники',
     'group' => 'Группа',
     'birth_certificate_number' => 'Номер документа',
-    'birth_certificate_date' => 'Дата',
+    'birth_certificate_date' => 'Дата выдачи метрики',
     'birth_certificate_file' => 'Файл',
     'has_certificate' => 'Сертификат',
     'action' => 'Действие',
@@ -47,5 +47,14 @@ return [
     'create_district' => 'Создание Района',
     'education_degrees' => 'Уровни Образования',
     'education_degree' => 'Образование',
-    'create_education_degree' => 'Создание уровня образования'
+    'create_education_degree' => 'Создание уровня образования',
+    'back'=>'Назад',
+    'sign_out'=>'Выход',
+    'user' => 'Имя',
+    'email' => 'Email',
+    'role' => 'Роль',
+    'lang' => 'Язык',
+    'add_user' => 'Добавить',
+    'password' => 'Пароль'
+
 ];

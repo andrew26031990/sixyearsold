@@ -23,10 +23,9 @@
 </div>
 
 <!-- Lang Field -->
-<label>{{__('message.lang')}}</label>
 <div class="form-group" style="display: inline-block">
-
-    <select class="form-control lang-user-change" onchange="changeLang(this.value, {{ $users->id }})">
+    <label>{{__('message.lang')}}</label>
+    <select class="form-control lang-user-change" onchange="changeLang(this.value, {{ $users->id }})" disabled>
         <option value="ru" {{ $users->lang == "ru" ? 'selected' : '' }}>ru</option>
         <option value="uz" {{ $users->lang == "uz" ? 'selected' : '' }}>uz</option>
     </select>

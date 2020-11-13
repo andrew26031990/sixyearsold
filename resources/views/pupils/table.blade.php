@@ -9,6 +9,7 @@
         <th>{{__('message.birth_certificate_date')}}</th>
         <th>{{__('message.birth_certificate_file')}}</th>
         <th>{{__('message.has_certificate')}}</th>
+                <th>Пол</th>
                 <th colspan="3">{{__('message.action')}}</th>
             </tr>
         </thead>
@@ -21,7 +22,8 @@
                 <td>{{ $pupil->birth_certificate_number }}</td>
                 <td>{{ $pupil->birth_certificate_date }}</td>
                 <td><a href="{{url('uploads/pupils/birth_certificate').'/'.$pupil->birth_certificate_file }}" download>{{$pupil->birth_certificate_file}}</a></td>
-                <td>{{ $pupil->has_certificate == 1 ? 'yes' : 'no' }}</td>
+                <td>{{ $pupil->has_certificate == 1 ? __('message.yes') : __('message.no') }}</td>
+                <td>{{ $pupil->sex == 1 ? 'мужской' : 'женский' }}</td>
                     <td>
                         {!! Form::open(['route' => ['pupils.destroy', $pupil->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

@@ -34,6 +34,14 @@
         <option value="user" {{(isset($users) && $users->role == 'user') ? 'selected' : ''}}>Пользователь</option>
     </select>
 </div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('role', __('message.role')) !!}
+    <select class="form-control lang-user-change" onchange="changeLang(this.value, {{ $users->id }})">
+        <option value="ru" {{ $users->lang == "ru" ? 'selected' : '' }}>ru</option>
+        <option value="uz" {{ $users->lang == "uz" ? 'selected' : '' }}>uz</option>
+    </select>
+</div>
 {{--<!-- Language Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('lang', 'Language') !!}

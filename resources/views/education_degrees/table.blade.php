@@ -2,8 +2,8 @@
     <table class="table" id="educationDegrees-table">
         <thead>
             <tr>
-                <th>Education degree</th>
-                <th colspan="3">Action</th>
+                <th>{{__('message.education_degree')}}</th>
+                <th colspan="3">{{__('message.action')}}</th>
             </tr>
         </thead>
         <tbody>
