@@ -75,7 +75,7 @@ class InstitutionsController extends AppBaseController
         $input = $request->all();
         $institutions = $this->institutionsRepository->create($input);
 
-        Flash::success('Institutions saved successfully.');
+        Flash::success(__('message.institution_saved_successfully'));
 
         return redirect(route('institutions.index'));
     }
@@ -96,7 +96,7 @@ class InstitutionsController extends AppBaseController
         select('countries.name as c_name', 'institutions.*', 'regions.name as r_name', 'districts.name as d_name')->first();
 
         if (empty($institutions)) {
-            Flash::error('Institutions not found');
+            Flash::error(__('message.institutions_not_found'));
 
             return redirect(route('institutions.index'));
         }
@@ -114,9 +114,9 @@ class InstitutionsController extends AppBaseController
     public function edit($id)
     {
         $institutions = $this->institutionsRepository->find($id);
-        
+
         if (empty($institutions)) {
-            Flash::error('Institutions not found');
+            Flash::error(__('message.institutions_not_found'));
 
             return redirect(route('institutions.index'));
         }
@@ -137,14 +137,14 @@ class InstitutionsController extends AppBaseController
         $institutions = $this->institutionsRepository->find($id);
 
         if (empty($institutions)) {
-            Flash::error('Institutions not found');
+            Flash::error(__('message.institutions_not_found'));
 
             return redirect(route('institutions.index'));
         }
 
         $institutions = $this->institutionsRepository->update($request->all(), $id);
 
-        Flash::success('Institutions updated successfully.');
+        Flash::success(__('message.institution_updated_successfully'));
 
         return redirect(route('institutions.index'));
     }
@@ -163,14 +163,14 @@ class InstitutionsController extends AppBaseController
         $institutions = $this->institutionsRepository->find($id);
 
         if (empty($institutions)) {
-            Flash::error('Institutions not found');
+            Flash::error(__('message.institutions_not_found'));
 
             return redirect(route('institutions.index'));
         }
 
         $this->institutionsRepository->delete($id);
 
-        Flash::success('Institutions deleted successfully.');
+        Flash::success(__('message.institution_deleted_successfully'));
 
         return redirect(route('institutions.index'));
     }

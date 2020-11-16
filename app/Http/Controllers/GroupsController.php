@@ -80,7 +80,7 @@ class GroupsController extends AppBaseController
 
         $groups = $this->groupsRepository->create($input);
 
-        Flash::success('Groups saved successfully.');
+        Flash::success(__('message.group_saved_successfully'));
 
         return redirect(route('groups.index'));
     }
@@ -101,7 +101,7 @@ class GroupsController extends AppBaseController
         select('countries.name as c_name', 'groups.*', 'institutions.name as i_name', 'regions.name as r_name', 'districts.name as d_name')->first();
 
         if (empty($groups)) {
-            Flash::error('Groups not found');
+            Flash::error(__('message.group_not_found'));
 
             return redirect(route('groups.index'));
         }
@@ -121,7 +121,7 @@ class GroupsController extends AppBaseController
         $groups = $this->groupsRepository->find($id);
 
         if (empty($groups)) {
-            Flash::error('Groups not found');
+            Flash::error(__('message.group_not_found'));
 
             return redirect(route('groups.index'));
         }
@@ -142,14 +142,14 @@ class GroupsController extends AppBaseController
         $groups = $this->groupsRepository->find($id);
 
         if (empty($groups)) {
-            Flash::error('Groups not found');
+            Flash::error(__('message.group_not_found'));
 
             return redirect(route('groups.index'));
         }
 
         $groups = $this->groupsRepository->update($request->all(), $id);
 
-        Flash::success('Groups updated successfully.');
+        Flash::success(__('message.group_updated_successfully'));
 
         return redirect(route('groups.index'));
     }
@@ -168,7 +168,7 @@ class GroupsController extends AppBaseController
         $groups = $this->groupsRepository->find($id);
 
         if (empty($groups)) {
-            Flash::error('Groups not found');
+            Flash::error(__('message.group_not_found'));
 
             return redirect(route('groups.index'));
         }
@@ -177,9 +177,9 @@ class GroupsController extends AppBaseController
 
         try{
             $this->groupsRepository->delete($id);
-            Flash::success('Groups deleted successfully.');
+            Flash::success(__('message.group_deleted_successfully'));
         }catch (\Exception $exception){
-            Flash::error('Невозможно удалить группу: '.$exception->getMessage());
+            Flash::error(__('message.unable_to_delete_group').$exception->getMessage());
         }
 
         //Flash::success('Groups deleted successfully.');

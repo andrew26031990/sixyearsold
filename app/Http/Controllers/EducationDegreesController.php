@@ -58,7 +58,7 @@ class EducationDegreesController extends AppBaseController
 
         $educationDegrees = $this->educationDegreesRepository->create($input);
 
-        Flash::success('Education Degrees saved successfully.');
+        Flash::success(__('message.education_degree_saved_successfully'));
 
         return redirect(route('educationDegrees.index'));
     }
@@ -75,7 +75,7 @@ class EducationDegreesController extends AppBaseController
         $educationDegrees = $this->educationDegreesRepository->find($id);
 
         if (empty($educationDegrees)) {
-            Flash::error('Education Degrees not found');
+            Flash::error(__('message.education_degree_not_found'));
 
             return redirect(route('educationDegrees.index'));
         }
@@ -95,7 +95,7 @@ class EducationDegreesController extends AppBaseController
         $educationDegrees = $this->educationDegreesRepository->find($id);
 
         if (empty($educationDegrees)) {
-            Flash::error('Education Degrees not found');
+            Flash::error(__('message.education_degree_not_found'));
 
             return redirect(route('educationDegrees.index'));
         }
@@ -116,14 +116,14 @@ class EducationDegreesController extends AppBaseController
         $educationDegrees = $this->educationDegreesRepository->find($id);
 
         if (empty($educationDegrees)) {
-            Flash::error('Education Degrees not found');
+            Flash::error(__('message.education_degree_not_found'));
 
             return redirect(route('educationDegrees.index'));
         }
 
         $educationDegrees = $this->educationDegreesRepository->update($request->all(), $id);
 
-        Flash::success('Education Degrees updated successfully.');
+        Flash::success(__('message.education_degree_updated_successfully'));
 
         return redirect(route('educationDegrees.index'));
     }
@@ -142,7 +142,7 @@ class EducationDegreesController extends AppBaseController
         $educationDegrees = $this->educationDegreesRepository->find($id);
 
         if (empty($educationDegrees)) {
-            Flash::error('Education Degrees not found');
+            Flash::error(__('message.education_degree_not_found'));
 
             return redirect(route('educationDegrees.index'));
         }
@@ -151,9 +151,9 @@ class EducationDegreesController extends AppBaseController
 
         try{
             $this->educationDegreesRepository->delete($id);
-            Flash::success('Education Degrees deleted successfully.');
+            Flash::success(__('message.education_degree_deleted_successfully'));
         }catch (\Exception $exception){
-            Flash::error('Невозможно удалить ученую степень: '.$exception->getMessage());
+            Flash::error(__('message.unable_to_delete_education_degree').$exception->getMessage());
         }
 
         //Flash::success('Education Degrees deleted successfully.');

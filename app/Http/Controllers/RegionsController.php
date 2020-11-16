@@ -64,7 +64,7 @@ class RegionsController extends AppBaseController
 
         $regions = $this->regionsRepository->create($input);
 
-        Flash::success('Regions saved successfully.');
+        Flash::success(__('message.region_saved_successfully'));
 
         return redirect(route('regions.index'));
     }
@@ -82,7 +82,7 @@ class RegionsController extends AppBaseController
         join('countries', 'regions.country_id', '=', 'countries.id')->where('regions.id', $id)->
         select('countries.name as c_name', 'regions.*')->first();
         if (empty($regions)) {
-            Flash::error('Regions not found');
+            Flash::error(__('message.region_not_found'));
 
             return redirect(route('regions.index'));
         }
@@ -102,7 +102,7 @@ class RegionsController extends AppBaseController
         $regions = $this->regionsRepository->find($id);
 
         if (empty($regions)) {
-            Flash::error('Regions not found');
+            Flash::error(__('message.region_not_found'));
 
             return redirect(route('regions.index'));
         }
@@ -123,14 +123,14 @@ class RegionsController extends AppBaseController
         $regions = $this->regionsRepository->find($id);
 
         if (empty($regions)) {
-            Flash::error('Regions not found');
+            Flash::error(__('message.region_not_found'));
 
             return redirect(route('regions.index'));
         }
 
         $regions = $this->regionsRepository->update($request->all(), $id);
 
-        Flash::success('Regions updated successfully.');
+        Flash::success(__('message.region_updated_successfully'));
 
         return redirect(route('regions.index'));
     }
@@ -149,16 +149,16 @@ class RegionsController extends AppBaseController
         $regions = $this->regionsRepository->find($id);
 
         if (empty($regions)) {
-            Flash::error('Regions not found');
+            Flash::error(__('message.region_not_found'));
 
             return redirect(route('regions.index'));
         }
 
         try{
             $this->regionsRepository->delete($id);
-            Flash::success('Region deleted successfully.');
+            Flash::success(__('message.region_deleted_successfully'));
         }catch (\Exception $exception){
-            Flash::error('Невозможно удалить регион: '.$exception->getMessage());
+            Flash::error(__('message.unable_to_delete_region').$exception->getMessage());
         }
 
         return redirect(route('regions.index'));

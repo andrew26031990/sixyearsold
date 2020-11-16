@@ -41,7 +41,7 @@ class Pupils extends Model
         'birth_certificate_date',
         'birth_certificate_file',
         'has_certificate',
-        'sex'
+        'gender'
     ];
 
     /**
@@ -58,7 +58,7 @@ class Pupils extends Model
         'birth_certificate_date' => 'date',
         //'birth_certificate_file' => 'string',
         'has_certificate' => 'boolean',
-        'sex'=>'integer'
+        'gender'=>'integer'
     ];
 
     /**
@@ -74,7 +74,7 @@ class Pupils extends Model
         'birth_certificate_date' => 'nullable',
         //'birth_certificate_file' => 'required',
         'has_certificate' => 'nullable|boolean',
-        'sex'=>'required'
+        'gender'=>'required'
     ];
 
     /**

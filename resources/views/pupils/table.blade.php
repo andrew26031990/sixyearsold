@@ -23,7 +23,7 @@
                 <td>{{ $pupil->birth_certificate_date }}</td>
                 <td><a href="{{url('uploads/pupils/birth_certificate').'/'.$pupil->birth_certificate_file }}" download>{{$pupil->birth_certificate_file}}</a></td>
                 <td>{{ $pupil->has_certificate == 1 ? __('message.yes') : __('message.no') }}</td>
-                <td>{{ $pupil->sex == 1 ? 'мужской' : 'женский' }}</td>
+                <td>{{ $pupil->gender == 1 ? 'мужской' : 'женский' }}</td>
                     <td>
                         {!! Form::open(['route' => ['pupils.destroy', $pupil->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

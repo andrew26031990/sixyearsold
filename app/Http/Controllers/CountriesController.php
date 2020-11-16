@@ -58,7 +58,7 @@ class CountriesController extends AppBaseController
 
         $countries = $this->countriesRepository->create($input);
 
-        Flash::success('Countries saved successfully.');
+        Flash::success(__('message.country_saved_successfully'));
 
         return redirect(route('countries.index'));
     }
@@ -75,7 +75,7 @@ class CountriesController extends AppBaseController
         $countries = $this->countriesRepository->find($id);
 
         if (empty($countries)) {
-            Flash::error('Countries not found');
+            Flash::error(__('message.country_not_found'));
 
             return redirect(route('countries.index'));
         }
@@ -95,7 +95,7 @@ class CountriesController extends AppBaseController
         $countries = $this->countriesRepository->find($id);
 
         if (empty($countries)) {
-            Flash::error('Countries not found');
+            Flash::error(__('message.country_not_found'));
 
             return redirect(route('countries.index'));
         }
@@ -116,14 +116,14 @@ class CountriesController extends AppBaseController
         $countries = $this->countriesRepository->find($id);
 
         if (empty($countries)) {
-            Flash::error('Countries not found');
+            Flash::error(__('message.country_not_found'));
 
             return redirect(route('countries.index'));
         }
 
         $countries = $this->countriesRepository->update($request->all(), $id);
 
-        Flash::success('Countries updated successfully.');
+        Flash::success(__('message.country_updated_successfully'));
 
         return redirect(route('countries.index'));
     }
@@ -142,7 +142,7 @@ class CountriesController extends AppBaseController
         $countries = $this->countriesRepository->find($id);
 
         if (empty($countries)) {
-            Flash::error('Countries not found');
+            Flash::error(__('message.country_not_found'));
 
             return redirect(route('countries.index'));
         }
@@ -151,9 +151,9 @@ class CountriesController extends AppBaseController
 
         try{
             $this->countriesRepository->delete($id);
-            Flash::success('Country deleted successfully.');
+            Flash::success(__('message.country_deleted_successfully'));
         }catch (\Exception $exception){
-            Flash::error('Невозможно удалить страну: '.$exception->getMessage());
+            Flash::error(__('message.unable_to_delete_country').$exception->getMessage());
         }
 
         //Flash::success('Countries deleted successfully.');

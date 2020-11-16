@@ -81,10 +81,10 @@ class PupilsController extends AppBaseController
             'birth_certificate_date'=>$request->get('birth_certificate_date'),
             'birth_certificate_file'=> $this->uploadFile($request, 'uploads/pupils/birth_certificate'), //
             'has_certificate'=>$request->get('has_certificate'),
-            'sex'=>$request->get('sex'),
+            'gender'=>$request->get('gender'),
         ]);
         $pupils->save();
-        Flash::success('Pupils saved successfully.');
+        Flash::success(__('message.pupil_saved_successfully'));
         Log::info(Auth::user()->name.' added '.$request->get('full_name'));
         return redirect(route('pupils.index'));
     }
@@ -100,7 +100,7 @@ class PupilsController extends AppBaseController
         $pupils = $this->pupilsRepository->find($id);
 
         if (empty($pupils)) {
-            Flash::error('Pupils not found');
+            Flash::error(__('message.pupils_not_found'));
 
             return redirect(route('pupils.index'));
         }
@@ -126,7 +126,7 @@ class PupilsController extends AppBaseController
         where('groups.id', $pupils->group_id)->
         get(['countries.name as c_name', 'countries.id as c_id', 'regions.name as r_name', 'regions.id as r_id', 'districts.name as d_name', 'districts.id as d_id', 'institutions.name as i_name', 'institutions.id as i_id', 'groups.name as g_name', 'groups.id as g_id']);
         if (empty($pupils)) {
-            Flash::error('Pupils not found');
+            Flash::error(__('message.pupils_not_found'));
 
             return redirect(route('pupils.index'));
         }
@@ -151,7 +151,7 @@ class PupilsController extends AppBaseController
         $pupils = $this->pupilsRepository->find($id);
 
         if (empty($pupils)) {
-            Flash::error('Pupils not found');
+            Flash::error(__('message.pupils_not_found'));
 
             return redirect(route('pupils.index'));
         }
@@ -167,7 +167,7 @@ class PupilsController extends AppBaseController
                     'birth_certificate_file'=>$this->uploadFile($request, 'uploads/pupils/birth_certificate'),
                     'birth_certificate_date'=>$request->get('birth_certificate_date'),
                     'has_certificate'=>$request->get('has_certificate'),
-                    'sex'=>$request->get('sex'),
+                    'gender'=>$request->get('gender'),
                 ),
                 $id);
         }else{
@@ -179,12 +179,12 @@ class PupilsController extends AppBaseController
                     'birth_certificate_number'=>$request->get('birth_certificate_number'),
                     'birth_certificate_date'=>$request->get('birth_certificate_date'),
                     'has_certificate'=>$request->get('has_certificate'),
-                    'sex'=>$request->get('sex'),
+                    'gender'=>$request->get('gender'),
                 ),
                 $id);
         }
 
-        Flash::success('Pupils updated successfully.');
+        Flash::success(__('message.pupil_updated_successfully'));
 
         return redirect(route('pupils.index'));
     }
@@ -203,7 +203,7 @@ class PupilsController extends AppBaseController
         $pupils = $this->pupilsRepository->find($id);
 
         if (empty($pupils)) {
-            Flash::error('Pupils not found');
+            Flash::error(__('message.pupils_not_found'));
 
             return redirect(route('pupils.index'));
         }
@@ -211,9 +211,9 @@ class PupilsController extends AppBaseController
         try{
             $this->deleteFile('uploads/pupils/birth_certificate/', $pupils->birth_certificate_file);
             $this->pupilsRepository->delete($id);
-            Flash::success('Pupils deleted successfully.');
+            Flash::success(__('message.pupil_deleted_successfully'));
         }catch (\Exception $exception){
-            Flash::error('Невозможно удалить воспитанника: '.$exception->getMessage());
+            Flash::error(__('message.unable_to_delete_pupil').$exception->getMessage());
         }
 
         return redirect(route('pupils.index'));

@@ -102,8 +102,8 @@
 </div>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('sex', 'Пол') !!}
-    <select class="form-control" name="sex" required>
+    {!! Form::label('gender', 'Пол') !!}
+    <select class="form-control" name="gender" required>
         @if(isset($pupils))
             <option value="1" {{($pupils->sex == 1) ? 'selected' : ''}}>Мужской</option>
             <option value="0" {{($pupils->sex == 0) ? 'selected' : ''}}>Женский</option>

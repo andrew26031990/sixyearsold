@@ -93,7 +93,7 @@ class TeachersController extends AppBaseController
             'institution_id'=>$request->get('institution_id'),
         ]);
         $teachers->save();
-        Flash::success('Teachers saved successfully.');
+        Flash::success(__('message.teacher_saved_successfully'));
 
         return redirect(route('teachers.index'));
     }
@@ -117,7 +117,7 @@ class TeachersController extends AppBaseController
         get('teachers.id');
 
         if (empty($teachers)) {
-            Flash::error('Teachers not found');
+            Flash::error(__('message.teachers_not_found'));
 
             return redirect(route('teachers.index'));
         }
@@ -138,7 +138,7 @@ class TeachersController extends AppBaseController
         $institutions = DB::table('institutions')->where('institutions.id', $teachers->institution_id)->get();
         $districts = DB::table('districts')->where('districts.id', $teachers->district_id)->get();
         if (empty($teachers)) {
-            Flash::error('Teachers not found');
+            Flash::error(__('message.teachers_not_found'));
 
             return redirect(route('teachers.index'));
         }
@@ -160,7 +160,7 @@ class TeachersController extends AppBaseController
         $teachers = $this->teachersRepository->find($id);
 
         if (empty($teachers)) {
-            Flash::error('Teachers not found');
+            Flash::error(__('message.teachers_not_found'));
 
             return redirect(route('teachers.index'));
         }
@@ -199,7 +199,7 @@ class TeachersController extends AppBaseController
 
         //$teachers = $this->teachersRepository->update($request->all(), $id);
 
-        Flash::success('Teachers updated successfully.');
+        Flash::success(__('message.teacher_updated_successfully'));
 
         return redirect(route('teachers.index'));
     }
@@ -218,7 +218,7 @@ class TeachersController extends AppBaseController
         $teachers = $this->teachersRepository->find($id);
 
         if (empty($teachers)) {
-            Flash::error('Teachers not found');
+            Flash::error(__('message.teachers_not_found'));
 
             return redirect(route('teachers.index'));
         }
@@ -226,9 +226,9 @@ class TeachersController extends AppBaseController
         try{
             $this->deleteFile('uploads/teachers/education_document/', $teachers->education_document_file);
             $this->teachersRepository->delete($id);
-            Flash::success('Teachers deleted successfully.');
+            Flash::success(__('message.teacher_deleted_successfully'));
         }catch (\Exception $exception){
-            Flash::error('Невозможно удалить учителя'.$exception->getMessage());
+            Flash::error(__('message.unable_to_delete_teacher').$exception->getMessage());
         }
 
         return redirect(route('teachers.index'));

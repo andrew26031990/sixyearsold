@@ -64,7 +64,7 @@ class CommunitiesController extends AppBaseController
 
         $communities = $this->communitiesRepository->create($input);
 
-        Flash::success('Communities saved successfully.');
+        Flash::success(__('message.community_saved_successfully'));
 
         return redirect(route('communities.index'));
     }
@@ -82,7 +82,7 @@ class CommunitiesController extends AppBaseController
         where('communities.id', $id)->
         select('communities.*', 'districts.name as d_name')->first();
         if (empty($communities)) {
-            Flash::error('Communities not found');
+            Flash::error(__('message.community_not_found'));
 
             return redirect(route('communities.index'));
         }
@@ -102,7 +102,7 @@ class CommunitiesController extends AppBaseController
         $communities = $this->communitiesRepository->find($id);
 
         if (empty($communities)) {
-            Flash::error('Communities not found');
+            Flash::error(__('message.community_not_found'));
 
             return redirect(route('communities.index'));
         }
@@ -123,14 +123,14 @@ class CommunitiesController extends AppBaseController
         $communities = $this->communitiesRepository->find($id);
 
         if (empty($communities)) {
-            Flash::error('Communities not found');
+            Flash::error(__('message.community_not_found'));
 
             return redirect(route('communities.index'));
         }
 
         $communities = $this->communitiesRepository->update($request->all(), $id);
 
-        Flash::success('Communities updated successfully.');
+        Flash::success(__('message.community_updated_successfuly'));
 
         return redirect(route('communities.index'));
     }
@@ -149,7 +149,7 @@ class CommunitiesController extends AppBaseController
         $communities = $this->communitiesRepository->find($id);
 
         if (empty($communities)) {
-            Flash::error('Communities not found');
+            Flash::error(__('message.community_not_found'));
 
             return redirect(route('communities.index'));
         }
@@ -158,9 +158,9 @@ class CommunitiesController extends AppBaseController
 
         try{
             $this->communitiesRepository->delete($id);
-            Flash::success('Communities deleted successfully.');
+            Flash::success(__('message.community_deleted_successfully'));
         }catch (\Exception $exception){
-            Flash::error('Невозможно удалить сообщество: '.$exception->getMessage());
+            Flash::error(__('message.unable_to_delete_community').$exception->getMessage());
         }
 
         //Flash::success('Communities deleted successfully.');

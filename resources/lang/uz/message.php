@@ -55,6 +55,65 @@ return [
     'role' => 'Рол',
     'lang' => 'Тил',
     'add_user' => 'Қўшиш',
-    'password' => 'Пароль'
+    'password' => 'Пароль',
 
+    'community_saved_successfully'=>'Маҳалла мувоффақиятли сақланди.',
+    'communities_not_found'=>'Маҳаллалар топилмади',
+    'community_updated_successfully'=>'Маҳалла мувоффақиятли янгиланди.',
+    'community_deleted_successfully'=>'Маҳалла мувоффақиятли ўчирилди.',
+    'unable_to_delete_community'=>'Маҳаллани ўчириб бўлмади',
+
+    'country_saved_successfully'=>'Мамлакат муваффақиятли сақланди.',
+    'countries_not_found'=>'Мамлакатлар топилмади.',
+    'country_updated_successfully'=>'Мамлакат муваффақиятли янгиланди.',
+    'country_deleted_successfully'=>'Мамлакат ўчирилди.',
+    'unable_to_delete_country'=>'Мамлакатни ўчириб бўлмади.',
+
+    'district_saved_successfully'=>'Туман муваффақиятли сақланиб қолди.',
+    'districts_not_found'=>'Туманлар топилмади',
+    'district_updated_successfully'=>'Туман муваффақиятли янгиланди.',
+    'district_deleted_successfully'=>'Туман ўчирилди.',
+    'unable_to_delete_district'=>'Туманни ўчириб бўлмади',
+
+    'education_degree_saved_successfully'=>'Таълим даражаси муваффақиятли сақланиб қолди.',
+    'education_degrees_not_found'=>'Таълим даражаси топилмади',
+    'education_degree_updated_successfully'=>'Таълим даражаси муваффақиятли янгиланди.',
+    'education_degree_deleted_successfully'=>'Таълим даражаси муваффақиятли ўчирилди.',
+    'unable_to_delete_education_degree'=>'Таълим даражасини ўчириб бўлмади',
+
+    'group_saved_successfully'=>'Гуруҳ муваффақиятли сақланди.',
+    'groups_not_found'=>'Гуруҳлар топилмади',
+    'group_updated_successfully'=>'Гуруҳ муваффақиятли янгиланди.',
+    'group_deleted_successfully'=>'Гуруҳ ўчирилди.',
+    'unable_to_delete_group'=>'Гуруҳни ўчириб бўлмади',
+
+    'institution_saved_successfully'=>'Ташкилот муваффақиятли сақланди.',
+    'institutions_not_found'=>'Ташкилотлар топилмади',
+    'institution_updated_successfully'=>'Ташкилот муваффақиятли янгиланди.',
+    'institution_deleted_successfully'=>'Ташкилот муваффақиятли ўчирилди.',
+    'unable_to_delete_institution'=>'Муассаса ўчирилмади',
+
+    'pupil_saved_successfully'=>'Тарбияланувчи муваффақиятли сақланди.',
+    'pupils_not_found'=>'Тарбияланувчилар топилмади',
+    'pupil_updated_successfully'=>'Тарбияланувчи муваффақиятли янгиланди.',
+    'pupil_deleted_successfully'=>'Тарбияланувчи муваффақиятли ўчирилди.',
+    'unable_to_delete_pupil'=>'Тарбияланувчи ўчириб бўлмади',
+
+    'region_saved_successfully'=>'Вилоят муваффақиятли сақланди.',
+    'regions_not_found'=>'Вилоятлар топилмади',
+    'region_updated_successfully'=>'Вилоят муваффақиятли янгиланди.',
+    'region_deleted_successfully'=>'Вилоят муваффақиятли ўчирилди.',
+    'unable_to_delete_region'=>'Вилоятни ўчириб бўлмайди',
+
+    'teacher_saved_successfully'=>'Ўқитувчи муваффақиятли сақланди.',
+    'teachers_not_found'=>'Ўқитувчилар топилмади',
+    'teacher_updated_successfully'=>'Ўқитувчи муваффақиятли янгиланди.',
+    'teacher_deleted_successfully'=>'Ўқитувчи ўчирилди.',
+    'unable_to_delete_teacher'=>'Ўқитувчини ўчириб бўлмади',
+
+    'user_saved_successfully'=>'Фойдаланувчи муваффақиятли сақланди.',
+    'users_not_found'=>'Фойдаланувчилар топилмади',
+    'user_updated_successfully'=>'Фойдаланувчи муваффақиятли янгиланди.',
+    'user_deleted_successfully'=>'Фойдаланувчи муваффақиятли ўчирилди.',
+    'unable_to_delete_user'=>'Фойдаланувчини ўчириб бўлмади',
 ];

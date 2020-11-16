@@ -64,7 +64,7 @@ class DistrictsController extends AppBaseController
 
         $districts = $this->districtsRepository->create($input);
 
-        Flash::success('Districts saved successfully.');
+        Flash::success(__('message.district_saved_successfully'));
 
         return redirect(route('districts.index'));
     }
@@ -82,7 +82,7 @@ class DistrictsController extends AppBaseController
         join('regions', 'districts.region_id', '=', 'regions.id')->where('districts.id', $id)->
         select('regions.name as r_name', 'districts.*')->first();
         if (empty($districts)) {
-            Flash::error('Districts not found');
+            Flash::error(__('message.district_not_found'));
 
             return redirect(route('districts.index'));
         }
@@ -102,7 +102,7 @@ class DistrictsController extends AppBaseController
         $districts = $this->districtsRepository->find($id);
 
         if (empty($districts)) {
-            Flash::error('Districts not found');
+            Flash::error(__('message.district_not_found'));
 
             return redirect(route('districts.index'));
         }
@@ -123,14 +123,14 @@ class DistrictsController extends AppBaseController
         $districts = $this->districtsRepository->find($id);
 
         if (empty($districts)) {
-            Flash::error('Districts not found');
+            Flash::error(__('message.district_not_found'));
 
             return redirect(route('districts.index'));
         }
 
         $districts = $this->districtsRepository->update($request->all(), $id);
 
-        Flash::success('Districts updated successfully.');
+        Flash::success(__('message.district_updated_successfully'));
 
         return redirect(route('districts.index'));
     }
@@ -149,16 +149,16 @@ class DistrictsController extends AppBaseController
         $districts = $this->districtsRepository->find($id);
 
         if (empty($districts)) {
-            Flash::error('Districts not found');
+            Flash::error(__('message.district_not_found'));
 
             return redirect(route('districts.index'));
         }
 
         try{
             $this->districtsRepository->delete($id);
-            Flash::success('District deleted successfully.');
+            Flash::success(__('message.district_deleted_successfully'));
         }catch (\Exception $exception){
-            Flash::error('Невозможно удалить район: '.$exception->getMessage());
+            Flash::error(__('message.unable_to_delete_district').$exception->getMessage());
         }
 
         return redirect(route('districts.index'));

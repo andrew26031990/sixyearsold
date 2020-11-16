@@ -73,7 +73,7 @@ class UsersController extends AppBaseController
             'lang'=>$request->get('lang'),
         ]);
 
-        Flash::success('User saved successfully.');
+        Flash::success(__('message.user_saved_successfully'));
 
         return redirect(route('users.index'));
     }
@@ -90,7 +90,7 @@ class UsersController extends AppBaseController
         $users = $this->usersRepository->find($id);
 
         if (empty($users)) {
-            Flash::error('Users not found');
+            Flash::error(__('message.user_not_found'));
 
             return redirect(route('users.index'));
         }
@@ -110,7 +110,7 @@ class UsersController extends AppBaseController
         $users = $this->usersRepository->find($id);
 
         if (empty($users)) {
-            Flash::error('Users not found');
+            Flash::error(__('message.user_not_found'));
 
             return redirect(route('users.index'));
         }
@@ -167,7 +167,7 @@ class UsersController extends AppBaseController
 
         $users = $this->usersRepository->update($request->all(), $id);*/
 
-        Flash::success('User updated successfully.');
+        Flash::success(__('message.user_updated_successfully'));
 
         return redirect(route('users.index'));
     }
@@ -186,14 +186,14 @@ class UsersController extends AppBaseController
         $users = $this->usersRepository->find($id);
 
         if (empty($users)) {
-            Flash::error('Users not found');
+            Flash::error(__('message.user_not_found'));
 
             return redirect(route('users.index'));
         }
 
         $this->usersRepository->delete($id);
 
-        Flash::success('Users deleted successfully.');
+        Flash::success(__('message.user_deleted_successfully'));
 
         return redirect(route('users.index'));
     }
