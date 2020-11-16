@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->setLocale(Auth::user()->lang)) }}">{{--{{ str_replace('_', '-', app()->setLocale(Auth::user()->lang)) }}--}}
+<html lang="{{ Auth::user()->lang }}">{{--{{ str_replace('_', '-', app()->setLocale(Auth::user()->lang)) }}--}}
 <head>
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
@@ -28,7 +28,6 @@
 </head>
 
 <body class="skin-blue sidebar-mini">
-
 @if (!Auth::guest())
     <div class="wrapper">
         <!-- Main Header -->

@@ -63,12 +63,14 @@ class UsersController extends AppBaseController
             'email' => 'required|unique:users,email',
             'password' => 'min:6|required',
             'role'=>[ 'not_regex:/^(no)$/i' ],
+            'lang'=>'required'
         ]);
         Users::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
             'role'=>$request->get('role'),
+            'lang'=>$request->get('lang'),
         ]);
 
         Flash::success('User saved successfully.');
@@ -130,6 +132,7 @@ class UsersController extends AppBaseController
             'name' => 'required|min:3|max:50',
             'email' => 'required|email',
             'role'=>[ 'not_regex:/^(no)$/i' ],
+            'lang'=>'required'
         ]);
 
         $password = $request->get('password');
@@ -141,6 +144,7 @@ class UsersController extends AppBaseController
                     'email'=>$request->get('email'),
                     'password'=>Hash::make($request->get('password')),
                     'role'=>$request->get('role'),
+                    'lang'=>$request->get('lang'),
                 ),
                 $id);
         }else{
@@ -149,6 +153,7 @@ class UsersController extends AppBaseController
                     'name'=>$request->get('name'),
                     'email'=>$request->get('email'),
                     'role'=>$request->get('role'),
+                    'lang'=>$request->get('lang'),
                 ),
                 $id);
         }

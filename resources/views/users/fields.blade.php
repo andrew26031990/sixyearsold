@@ -36,21 +36,12 @@
 </div>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('role', __('message.role')) !!}
-    <select class="form-control lang-user-change" onchange="changeLang(this.value, {{ $users->id }})">
+    {!! Form::label('lang', __('message.lang')) !!}
+    <select name="lang" class="form-control lang-user-change">{{--onchange="changeLang(this.value, {{ $users->id }})"--}}
         <option value="ru" {{ $users->lang == "ru" ? 'selected' : '' }}>ru</option>
         <option value="uz" {{ $users->lang == "uz" ? 'selected' : '' }}>uz</option>
     </select>
 </div>
-{{--<!-- Language Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('lang', 'Language') !!}
-    <select class="form-control" name="lang" required>
-        <option value="no">Выберите язык интерфейса для пользователя</option>
-        <option value="ru">Русский</option>
-        <option value="uz">Узбекский</option>
-    </select>
-</div>--}}
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
