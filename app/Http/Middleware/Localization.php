@@ -20,7 +20,6 @@ class Localization
         if(isset(Auth::user()->lang)){
             \App::setlocale(Auth::user()->lang);
         }
-        //\App::setlocale('ru');
 
         return $next($request);
     }
