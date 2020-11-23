@@ -157,5 +157,12 @@ return [
     'users_index' => 'Фойдаланувчилар',
     'users_edit' => 'Фойдаланувчини тахрирлаш',
     'users_create' => 'Фойдаланувчини яратиш',
-    'users_show' => 'Фойдаланувчи саҳифаси'
+    'users_show' => 'Фойдаланувчи саҳифаси',
+    'choose_country' => 'Мамлакатни танланг',
+    'choose_region' => 'Вилоятни танланг',
+    'choose_district' => 'Туманни танланг',
+    'choose_organization' => 'Ташкилотни танланг',
+    'six_years_pupils_count' => '6 йошгача бўлган болалар сони',
+    'teachers_count' => 'Ўқитувчилар сони',
+    'groups_count' => 'Гурухлар сони',
 ];

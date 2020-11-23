@@ -12,7 +12,7 @@
                             <div class="form-group">
                                 <label>{{__('message.region')}}</label>
                                 <select class="form-control" name="region_id">
-                                    <option>Выберите регион</option>
+                                    <option>{{__('message.choose_region')}}</option>
                                     @foreach($regions as $region)
                                         <option value="{{$region->id}}">{{$region->name}}</option>
                                     @endforeach
@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label>{{__('message.district')}}</label>
                                 <select class="form-control"  name="district_id">
-                                    <option>Выберите район</option>
+                                    <option>{{__('message.choose_district')}}</option>
                                 </select>
                             </div>
                             <!-- /.info-box -->
@@ -39,7 +39,7 @@
                             <div class="form-group">
                                 <label>{{__('message.institution')}}</label>
                                 <select class="form-control"  name="institution_id">
-                                    <option>Выберите организацию</option>
+                                    <option>{{__('message.choose_organization')}}</option>
                                 </select>
                             </div>
                             <!-- /.info-box -->
@@ -51,7 +51,7 @@
                                 <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
                                 <div class="info-box-content">
-                                    <span>Количество детей до 6 лет</span>
+                                    <span>{{__('message.six_years_pupils_count')}}</span>
                                     <span class="info-box-number pupilsCount">{{$data['pupils_count']}}</span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -64,7 +64,7 @@
                                 <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
 
                                 <div class="info-box-content">
-                                    <span>Количество педагогов</span>
+                                    <span>{{__('message.teachers_count')}}</span>
                                     <span class="info-box-number teachersCount">{{$data['teachers_count']}}</span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -81,7 +81,7 @@
                                 <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
 
                                 <div class="info-box-content">
-                                    <span>Количество групп</span>
+                                    <span>{{__('message.groups_count')}}</span>
                                     <span class="info-box-number groupsCount">{{$data['groups_count']}}</span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -99,7 +99,7 @@
             $('select[name="region_id"]').on('change', function() {
                 let id = $(this).val();
                 $('select[name="district_id"]').html('');
-                $('select[name="institution_id"]').html('').append('<option>Выберите организацию</option>');
+                $('select[name="institution_id"]').html('').append('<option>{{__('message.choose_institution')}}</option>');
                 getDistricts(id);
                 getStatistics(id, 'region');
             });

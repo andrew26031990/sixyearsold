@@ -8,7 +8,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('country_id', __('message.country')) !!}
     <select class="form-control" name="country_id" required>
-        <option value="-1">Выберите страну</option>
+        <option value="-1">{{__('message.choose_country')}}</option>
         @foreach($countries as $country)
             <option value="{{$country->id}}" {{ isset($groups->country_id) && $groups->country_id == $country->id ? 'selected' : '' }}>{{$country->name}}</option>
         @endforeach
@@ -19,7 +19,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('region_id', __('message.region')) !!}
     <select class="form-control" name="region_id" required disabled>
-        <option value="-1">Выберите регион</option>
+        <option value="-1">{{__('message.choose_region')}}</option>
         --}}{{--@foreach($regions as $region)
             <option value="{{$region->id}}" {{ isset($groups->region_id) && $groups->region_id == $region->id ? 'selected' : '' }}>{{$region->name}}</option>
         @endforeach--}}{{--
@@ -30,7 +30,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('district_id', __('message.district')) !!}
     <select class="form-control" name="district_id" required disabled>
-        <option value="-1">Выберите район</option>
+        <option value="-1">{{__('message.choose_district')}}</option>
         --}}{{--@foreach($districts as $district)
             <option value="{{$district->id}}" {{ isset($groups->district_id) && $groups->district_id == $district->id ? 'selected' : '' }}>{{$district->name}}</option>
         @endforeach--}}{{--
@@ -52,7 +52,7 @@
 {{--<div class="form-group col-sm-6">
     {!! Form::label('country_id', __('message.country')) !!}
     <select class="form-control" name="country_id" required>
-        <option value="-1">Выберите страну</option>
+        <option value="-1">{{__('message.choose_country')}}</option>
         @foreach($countries as $country)
             @if(isset($country->id))
                 <option value="{{$country->id}}" {{ ($groups->country_id == $country->id) ? 'selected' : '' }}>{{$country->name}}</option>

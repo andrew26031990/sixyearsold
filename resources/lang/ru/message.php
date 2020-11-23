@@ -157,5 +157,12 @@ return [
     'users_index' => 'Пользователи',
     'users_edit' => 'Редактировать пользователя',
     'users_create' => 'Cоздать пользователя',
-    'users_show' => 'Страница пользователя'
+    'users_show' => 'Страница пользователя',
+    'choose_country' => 'Выберите страну',
+    'choose_region' => 'Выберите регион',
+    'choose_district' => 'Выберите район',
+    'choose_organization' => 'Выберите организацию',
+    'six_years_pupils_count' => 'Количество детей до 6 лет',
+    'teachers_count' => 'Количество педагогов',
+    'groups_count' => 'Количество групп',
 ];

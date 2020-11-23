@@ -178,7 +178,7 @@ class InstitutionsController extends AppBaseController
     public function getInstitutions(){
         $id = $_GET['id'];
         $institutions = DB::table('institutions')->where('district_id', '=', $id)->get();
-        $html = '<option value="">Выберите учреждение</option>';
+        $html = '<option value="">'.trans('message.choose_organization').'</option>';
         foreach ($institutions as $institution){
             $html .=
                 '<option value="'.$institution->id.'">'.$institution->name.'</option>';

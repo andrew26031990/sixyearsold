@@ -167,7 +167,7 @@ class RegionsController extends AppBaseController
     public function getRegions(){
         $id = $_GET['id'];
         $regions = DB::table('regions')->where('country_id', '=', $id)->get();
-        $html = '<option value="">Выберите регион</option>';
+        $html = '<option value="">'.trans('message.choose_region').'</option>';
         foreach ($regions as $region){
             $html .=
                 '<option value="'.$region->id.'">'.$region->name.'</option>';

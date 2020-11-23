@@ -4,10 +4,10 @@
     {!! Form::label('country_id', __('message.country')) !!}
     <select class="form-control" name="country_id">
         @if(isset($groups[0]->c_id))
-            <option value="-1">Выберите страну</option>
+            <option value="-1">{{__('message.choose_country')}}</option>
             <option value="{{$groups[0]->c_id}}" selected>{{$groups[0]->c_name}}</option>
         @else
-            <option value="-1">Выберите страну</option>
+            <option value="-1">{{__('message.choose_country')}}</option>
             @foreach($countries as $country)
                 <option value="{{$country->id}}" {{ isset($groups->c_id) && $groups->c_id == $country->id ? 'selected' : '' }}>{{$country->name}}</option>
             @endforeach
@@ -19,10 +19,10 @@
     {!! Form::label('region_id', __('message.region')) !!}
     <select class="form-control" name="region_id">
         @if(isset($groups[0]->r_id))
-            <option value="-1">Выберите регион</option>
+            <option value="-1">{{__('message.choose_region')}}</option>
             <option value="{{$groups[0]->r_id}}" selected>{{$groups[0]->r_name}}</option>
         @else
-            <option value="-1">Выберите регион</option>
+            <option value="-1">{{__('message.choose_region')}}</option>
             @foreach($regions as $region)
                 <option value="{{$region->id}}" {{ isset($groups->c_id) && $groups->c_id == $region->id ? 'selected' : '' }}>{{$region->name}}</option>
             @endforeach
@@ -37,7 +37,7 @@
         @if(isset($groups[0]->d_id))
             <option value="{{$groups[0]->d_id}}">{{$groups[0]->d_name}}</option>
         @else
-            <option value="-1">Выберите район</option>
+            <option value="-1">{{__('message.choose_district')}}</option>
         @endif
     </select>
 </div>

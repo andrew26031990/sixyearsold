@@ -70,7 +70,7 @@
         @if(isset($districts))
             <option value="{{$districts[0]->id}}" selected>{{$districts[0]->name}}</option>
         @else
-            <option value="">Выберите район</option>
+            <option value="">{{__('message.choose_district')}}</option>
         @endif
     </select>
 </div>
@@ -80,12 +80,12 @@
     {!! Form::label('region_id', __('message.region')) !!}
     <select class="form-control" name="region_id" required>
         @if(isset($teachers))
-            <option value="">Выберите регион</option>
+            <option value="">{{__('message.choose_region')}}</option>
             @foreach($regions as $region)
                 <option value="{{$region->id}}" {{($teachers->region_id == $region->id) ? 'selected' : ''}}>{{$region->name}}</option>
             @endforeach
         @else
-            <option value="">Выберите регион</option>
+            <option value="">{{__('message.choose_region')}}</option>
             @foreach($regions as $region)
                 <option value="{{$region->id}}">{{$region->name}}</option>
             @endforeach
